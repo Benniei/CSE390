@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">HighLowGame</string>
+    <string name="hello_world">Hewwo World!</string>
+    <string name="next">Next</string>
+</resources>
