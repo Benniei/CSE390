@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
@@ -18,7 +19,6 @@ public class MainActivity extends AppCompatActivity {
 
         // initiate the correct answer
         answer = ((int) (Math.random() * 10)) + 1;
-
         setContentView(R.layout.activity_main);
         initGuessButton();
         initAnswerButton();
@@ -39,23 +39,44 @@ public class MainActivity extends AppCompatActivity {
                     niToast.show();
                     return;
                 }
+                TextView counter = findViewById(R.id.num_count);
+                String countTries = counter.getText().toString();
+                Integer count = Integer.parseInt(countTries.toString());
+                if(count == 0){
+                    Toast ansToast = Toast.makeText(getApplicationContext(), "There are no tries left!", Toast.LENGTH_SHORT);
+                    View toastView = ansToast.getView();
+                    toastView.setBackgroundColor(getResources().getColor(R.color.toast_red));
+                    ansToast.show();
+                    return;
+                }
                 int guess = Integer.parseInt(string_guess);
-                if (guess == answer) {
+                if(guess < 0 || guess > 10){
+                    Toast ansToast = Toast.makeText(getApplicationContext(), "Guess is out of bounds", Toast.LENGTH_SHORT);
+                    View toastView = ansToast.getView();
+                    toastView.setBackgroundColor(getResources().getColor(R.color.toast_red));
+                    ansToast.show();
+                }
+                else if (guess == answer) {
                     Toast ansToast = Toast.makeText(getApplicationContext(), "Congratulations! Your input is correct", Toast.LENGTH_SHORT);
                     View toastView = ansToast.getView();
                     toastView.setBackgroundColor(getResources().getColor(R.color.toast_green));
                     ansToast.show();
-                } else if (guess < answer) {
+                    return;
+                }
+                else if (guess < answer) {
                     Toast lowToast = Toast.makeText(getApplicationContext(), "Your guess is too low", Toast.LENGTH_SHORT);
                     View toastView = lowToast.getView();
                     toastView.setBackgroundColor(getResources().getColor(R.color.toast_red));
                     lowToast.show();
-                } else {
+                }
+                else {
                     Toast highToast = Toast.makeText(getApplicationContext(), "Your guess is too high", Toast.LENGTH_SHORT);
                     View toastView = highToast.getView();
                     toastView.setBackgroundColor(getResources().getColor(R.color.toast_red));
                     highToast.show();
                 }
+                count--;
+                counter.setText(count.toString());
             }
         });
 
@@ -71,6 +92,8 @@ public class MainActivity extends AppCompatActivity {
                 View toastView = ansToast.getView();
                 toastView.setBackgroundColor(getResources().getColor(R.color.toast_yellow));
                 ansToast.show();
+                TextView counter = findViewById(R.id.num_count);
+                counter.setText("0");
             }
         });
     }
@@ -85,7 +108,10 @@ public class MainActivity extends AppCompatActivity {
                 Toast ansToast = Toast.makeText(getApplicationContext(), "New Game Initiated", Toast.LENGTH_SHORT);
                 View toastView = ansToast.getView();
                 toastView.setBackgroundColor(getResources().getColor(R.color.purple_200));
+
                 ansToast.show();
+                TextView counter = findViewById(R.id.num_count);
+                counter.setText("5");
             }
         });
     }
