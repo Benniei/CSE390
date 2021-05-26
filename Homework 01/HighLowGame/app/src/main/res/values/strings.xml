@@ -1,5 +1,8 @@
 <resources>
     <string name="app_name">HighLowGame</string>
-    <string name="hello_world">Hewwo World!</string>
-    <string name="next">Next</string>
+    <string name="hello_world">HighLowGame</string>
+    <string name="guess">Guess</string>
+    <string name="num_prompt">Guess a number between 1 - 10</string>
+    <string name="new_game">New Game</string>
+    <string name="give_up">Give up</string>
 </resources>
