@@ -42,38 +42,29 @@ public class MainActivity extends AppCompatActivity {
                 TextView counter = findViewById(R.id.num_count);
                 String countTries = counter.getText().toString();
                 Integer count = Integer.parseInt(countTries.toString());
+                TextView notice = findViewById(R.id.notify);
                 if(count == 0){
-                    Toast ansToast = Toast.makeText(getApplicationContext(), "There are no tries left!", Toast.LENGTH_SHORT);
-                    View toastView = ansToast.getView();
-                    toastView.setBackgroundColor(getResources().getColor(R.color.toast_red));
-                    ansToast.show();
+                    notice.setText("There are no more tries left");
+                    notice.setTextColor(getResources().getColor(R.color.toast_red));
                     return;
                 }
                 int guess = Integer.parseInt(string_guess);
                 if(guess < 0 || guess > 10){
-                    Toast ansToast = Toast.makeText(getApplicationContext(), "Guess is out of bounds", Toast.LENGTH_SHORT);
-                    View toastView = ansToast.getView();
-                    toastView.setBackgroundColor(getResources().getColor(R.color.toast_red));
-                    ansToast.show();
+                    notice.setText("Input is out of bounds");
+                    notice.setTextColor(getResources().getColor(R.color.toast_red));
                 }
                 else if (guess == answer) {
-                    Toast ansToast = Toast.makeText(getApplicationContext(), "Congratulations! Your input is correct", Toast.LENGTH_SHORT);
-                    View toastView = ansToast.getView();
-                    toastView.setBackgroundColor(getResources().getColor(R.color.toast_green));
-                    ansToast.show();
+                    notice.setText("Congratulations! Your input is correct");
+                    notice.setTextColor(getResources().getColor(R.color.toast_green));
                     return;
                 }
                 else if (guess < answer) {
-                    Toast lowToast = Toast.makeText(getApplicationContext(), "Your guess is too low", Toast.LENGTH_SHORT);
-                    View toastView = lowToast.getView();
-                    toastView.setBackgroundColor(getResources().getColor(R.color.toast_red));
-                    lowToast.show();
+                    notice.setText("Your guess is too low");
+                    notice.setTextColor(getResources().getColor(R.color.toast_red));
                 }
                 else {
-                    Toast highToast = Toast.makeText(getApplicationContext(), "Your guess is too high", Toast.LENGTH_SHORT);
-                    View toastView = highToast.getView();
-                    toastView.setBackgroundColor(getResources().getColor(R.color.toast_red));
-                    highToast.show();
+                    notice.setText("Your guess is too high");
+                    notice.setTextColor(getResources().getColor(R.color.toast_red));
                 }
                 count--;
                 counter.setText(count.toString());
@@ -94,6 +85,8 @@ public class MainActivity extends AppCompatActivity {
                 ansToast.show();
                 TextView counter = findViewById(R.id.num_count);
                 counter.setText("0");
+                TextView notice = findViewById(R.id.notify);
+                notice.setText("");
             }
         });
     }
@@ -108,10 +101,11 @@ public class MainActivity extends AppCompatActivity {
                 Toast ansToast = Toast.makeText(getApplicationContext(), "New Game Initiated", Toast.LENGTH_SHORT);
                 View toastView = ansToast.getView();
                 toastView.setBackgroundColor(getResources().getColor(R.color.purple_200));
-
                 ansToast.show();
                 TextView counter = findViewById(R.id.num_count);
                 counter.setText("5");
+                TextView notice = findViewById(R.id.notify);
+                notice.setText("");
             }
         });
     }
