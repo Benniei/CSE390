@@ -1,3 +1,8 @@
+/*
+ * CSE 390: Mobile App Development
+ * Name: Bennie Chen
+ * Student ID: 112737201
+ */
 package com.example.calculatorapp;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,6 +16,11 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
+    /*
+     * This method is called when the app is created and initiates all the buttons and also sets up the layout
+     *
+     * @param savedInstanceState Bundle Object that passes in the saved Instance State
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,6 +31,9 @@ public class MainActivity extends AppCompatActivity {
         initDivideButton();
     }
 
+    /*
+     * Initiates the add button which takes 2 inputs and computes addition
+     */
     private void initAddButton(){
         Button addButton = findViewById(R.id.plus);
         addButton.setOnClickListener(new View.OnClickListener() {
@@ -45,6 +58,9 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    /*
+     * Initiates the subtract button which takes 2 inputs and computes subtraction
+     */
     private void initSubtractButton(){
         Button subButton = findViewById(R.id.subtract);
         subButton.setOnClickListener(new View.OnClickListener() {
@@ -69,6 +85,9 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    /*
+     * Initiates the multiply button which takes 2 inputs and computes multiplication
+     */
     private void initMultiplyButton(){
         Button mulButton = findViewById(R.id.multiply);
         mulButton.setOnClickListener(new View.OnClickListener() {
@@ -93,6 +112,9 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    /*
+     * Initiates the divide button which takes 2 inputs and computer division (Checks for divide by 0)
+     */
     private void initDivideButton(){
         Button divButton = findViewById(R.id.divide);
         divButton.setOnClickListener(new View.OnClickListener() {

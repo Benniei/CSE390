@@ -1,3 +1,9 @@
+/*
+ * CSE 390: Mobile App Development
+ * Name: Bennie Chen
+ * Student ID: 112737201
+ */
+
 package com.example.highlowgame;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -9,10 +15,17 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.highlowgame.R;
+
 public class MainActivity extends AppCompatActivity {
 
     private int answer;
 
+    /*
+     * This method is called when the app is first opened and it sets the layouts and initiates all the buttons
+     *
+     * @param savedInstanceState Bundle Object that represents the instance State
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,6 +38,9 @@ public class MainActivity extends AppCompatActivity {
         initNewGameButton();
     }
 
+    /*
+     * This method initiates the Guess method which will check the Input field to see if it is the same as the random number
+     */
     private void initGuessButton() {
         Button guessButton = findViewById(R.id.guess_button);
 
@@ -33,16 +49,19 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 EditText guess_input = findViewById(R.id.guess_input);
                 String string_guess = guess_input.getText().toString();
+                // Checks if guess is empty
                 if (string_guess.matches("")) {
                     Toast niToast = Toast.makeText(getApplicationContext(), "You did not provide a guess", Toast.LENGTH_SHORT);
                     View toastView = niToast.getView();
                     niToast.show();
                     return;
                 }
+                // Gets the counter
                 TextView counter = findViewById(R.id.num_count);
                 String countTries = counter.getText().toString();
                 Integer count = Integer.parseInt(countTries.toString());
                 TextView notice = findViewById(R.id.notify);
+                // Checks the number of counts
                 if(count == 0){
                     notice.setText("There are no more tries left");
                     notice.setTextColor(getResources().getColor(R.color.toast_red));
@@ -73,6 +92,9 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    /*
+     * The method initiates the Answer Button which will display the answer and empty the number of tries
+     */
     private void initAnswerButton() {
         Button answerButton = findViewById(R.id.answer_button);
 
@@ -91,6 +113,9 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    /*
+     * This method initiates the New Game button which will restart the game by getting a new answer and resetting the number of tries
+     */
     private void initNewGameButton() {
         Button newGameButton = findViewById(R.id.new_game);
 
