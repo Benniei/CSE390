@@ -8,8 +8,10 @@ package com.example.highlowgame;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -48,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 EditText guess_input = findViewById(R.id.guess_input);
-                String string_guess = guess_input.getText().toString();
+                String string_guess = guess_input.getText().toString().trim();
                 // Checks if guess is empty
                 if (string_guess.matches("")) {
                     Toast niToast = Toast.makeText(getApplicationContext(), "You did not provide a guess", Toast.LENGTH_SHORT);

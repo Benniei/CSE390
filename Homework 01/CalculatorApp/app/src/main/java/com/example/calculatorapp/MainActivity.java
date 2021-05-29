@@ -41,8 +41,8 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 EditText inputOne = findViewById(R.id.inputOne);
                 EditText inputTwo = findViewById(R.id.inputTwo);
-                String inOne = inputOne.getText().toString();
-                String inTwo = inputTwo.getText().toString();
+                String inOne = inputOne.getText().toString().trim();
+                String inTwo = inputTwo.getText().toString().trim();
                 if(inOne.matches("") || inTwo.matches("")){
                     Toast niToast = Toast.makeText(getApplicationContext(), "Incomplete input", Toast.LENGTH_SHORT);
                     View toastView = niToast.getView();
@@ -68,8 +68,8 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 EditText inputOne = findViewById(R.id.inputOne);
                 EditText inputTwo = findViewById(R.id.inputTwo);
-                String inOne = inputOne.getText().toString();
-                String inTwo = inputTwo.getText().toString();
+                String inOne = inputOne.getText().toString().trim();
+                String inTwo = inputTwo.getText().toString().trim();
                 if(inOne.matches("") || inTwo.matches("")){
                     Toast niToast = Toast.makeText(getApplicationContext(), "Incomplete input", Toast.LENGTH_SHORT);
                     View toastView = niToast.getView();
@@ -95,8 +95,8 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 EditText inputOne = findViewById(R.id.inputOne);
                 EditText inputTwo = findViewById(R.id.inputTwo);
-                String inOne = inputOne.getText().toString();
-                String inTwo = inputTwo.getText().toString();
+                String inOne = inputOne.getText().toString().trim();
+                String inTwo = inputTwo.getText().toString().trim();
                 if(inOne.matches("") || inTwo.matches("")){
                     Toast niToast = Toast.makeText(getApplicationContext(), "Incomplete input", Toast.LENGTH_SHORT);
                     View toastView = niToast.getView();
@@ -122,8 +122,8 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 EditText inputOne = findViewById(R.id.inputOne);
                 EditText inputTwo = findViewById(R.id.inputTwo);
-                String inOne = inputOne.getText().toString();
-                String inTwo = inputTwo.getText().toString();
+                String inOne = inputOne.getText().toString().trim();
+                String inTwo = inputTwo.getText().toString().trim();
                 if(inOne.matches("") || inTwo.matches("")){
                     Toast niToast = Toast.makeText(getApplicationContext(), "Incomplete input", Toast.LENGTH_SHORT);
                     View toastView = niToast.getView();
