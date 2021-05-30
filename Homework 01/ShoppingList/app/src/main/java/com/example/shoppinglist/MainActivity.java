@@ -6,20 +6,58 @@
 
 package com.example.shoppinglist;
 
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
 
+import android.content.Context;
+import android.database.Cursor;
 import android.os.Bundle;
-import android.view.Window;
+import android.view.View;
+import android.widget.ImageButton;
 
-import java.util.Objects;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 
 public class MainActivity extends AppCompatActivity {
+    private Context context;
 
+    /*
+     * This method is called when the app is created
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getSupportActionBar().hide();
+        getSupportActionBar().hide(); // Hides the toolbar on top
         setContentView(R.layout.activity_main);
+        context = this;
+        // Buttons on the homepage
+        ImageButton buttonSettings = findViewById(R.id.settings_button);
+        FloatingActionButton buttonAddItem = findViewById(R.id.add_item);
+
+        // Settings Button initializing the setting which allows for sorting oft he Recycler List
+        buttonSettings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        // Add Item Button which creates a dialog to input the item
+        buttonAddItem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentManager fm = getSupportFragmentManager();
+                AddItemDialog addItemDialog = new AddItemDialog(context);
+                addItemDialog.show(fm, "AddItem");
+            }
+        });
+    }
+
+    private void addItem(){
+
+    }
+
+    private Cursor getAllItems(){
+        return null;
     }
 }
