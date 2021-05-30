@@ -19,8 +19,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 
 public class MainActivity extends AppCompatActivity {
-    private Context context;
-
+    // TODO: Implement ShoppingAdapter.java + Implement Database and Adapter in the main method
     /*
      * This method is called when the app is created
      */
@@ -29,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         getSupportActionBar().hide(); // Hides the toolbar on top
         setContentView(R.layout.activity_main);
-        context = this;
+
         // Buttons on the homepage
         ImageButton buttonSettings = findViewById(R.id.settings_button);
         FloatingActionButton buttonAddItem = findViewById(R.id.add_item);
@@ -47,14 +46,18 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 FragmentManager fm = getSupportFragmentManager();
-                AddItemDialog addItemDialog = new AddItemDialog(context);
+                AddItemDialog addItemDialog = new AddItemDialog();
                 addItemDialog.show(fm, "AddItem");
             }
         });
     }
 
-    private void addItem(){
+    public boolean insertItem(){
+        return false;
+    }
 
+    public boolean updateItem(){
+        return false;
     }
 
     private Cursor getAllItems(){

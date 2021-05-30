@@ -20,10 +20,7 @@ import android.widget.Toast;
 import androidx.fragment.app.DialogFragment;
 
 public class AddItemDialog extends DialogFragment implements AdapterView.OnItemSelectedListener {
-    private final Context context;
-    public AddItemDialog(Context context){
-        this.context = context;
-    }
+    public AddItemDialog(){}
 
     /*
      * This method creates the dialog and initializes the Spinner and the Cancel and Save Buttons
@@ -37,7 +34,7 @@ public class AddItemDialog extends DialogFragment implements AdapterView.OnItemS
         Spinner itemSpinner = view.findViewById(R.id.item_category);
         // Spinner Click Listener
         itemSpinner.setOnItemSelectedListener(this);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(context,
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(),
                 R.array.shopping_options, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         itemSpinner.setAdapter(adapter);
