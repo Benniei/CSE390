@@ -52,14 +52,6 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    public boolean insertItem(){
-        return false;
-    }
-
-    public boolean updateItem(){
-        return false;
-    }
-
     private Cursor getAllItems(){
         return null;
     }

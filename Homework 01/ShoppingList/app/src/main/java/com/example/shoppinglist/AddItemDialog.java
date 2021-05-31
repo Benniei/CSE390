@@ -45,7 +45,7 @@ public class AddItemDialog extends DialogFragment implements AdapterView.OnItemS
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                insertItem();
             }
         });
         // Cancel Button
@@ -69,5 +69,13 @@ public class AddItemDialog extends DialogFragment implements AdapterView.OnItemS
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
         // Do nothing
+    }
+
+    public boolean insertItem(){
+        return false;
+    }
+
+    public boolean updateItem(){
+        return false;
     }
 }
