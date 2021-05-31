@@ -7,6 +7,7 @@
 package com.example.shoppinglist;
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
@@ -23,7 +24,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import org.jetbrains.annotations.NotNull;
 
 public class ShoppingAdapter extends RecyclerView.Adapter<ShoppingAdapter.ShoppingViewHolder>{
-    private Context context;
+    private final Context context;
     private Cursor cursor;
 
     public ShoppingAdapter(Context context, Cursor cursor){
@@ -120,6 +121,10 @@ public class ShoppingAdapter extends RecyclerView.Adapter<ShoppingAdapter.Shoppi
     public int getItemCount() {
         return cursor.getCount();
     }
+
+//    public void setOnItemClickListener(View.OnClickListener itemClickListener){
+//        mOnItemClickListener = itemClickListener;
+//    }
 
     public void swapCursor(Cursor newCursor){
         if(cursor != null)

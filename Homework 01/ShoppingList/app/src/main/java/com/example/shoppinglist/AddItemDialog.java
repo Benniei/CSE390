@@ -7,6 +7,8 @@
 package com.example.shoppinglist;
 
 import android.content.Context;
+import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,9 +20,13 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.fragment.app.DialogFragment;
+import androidx.recyclerview.widget.RecyclerView;
 
 public class AddItemDialog extends DialogFragment implements AdapterView.OnItemSelectedListener {
-    public AddItemDialog(){}
+    private SQLiteDatabase database;
+    public AddItemDialog(SQLiteDatabase database){
+        this.database = database;
+    }
 
     /*
      * This method creates the dialog and initializes the Spinner and the Cancel and Save Buttons
