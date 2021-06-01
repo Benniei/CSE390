@@ -6,8 +6,10 @@
 
 package com.example.shoppinglist;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -16,6 +18,8 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -51,7 +55,22 @@ public class AddItemDialog extends DialogFragment implements AdapterView.OnItemS
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                insertItem();
+                String name = ((EditText) view.findViewById(R.id.Name_input)).getText().toString();
+                String cost = ((EditText) view.findViewById(R.id.Cost_input)).getText().toString();
+                String category = ((Spinner) view.findViewById(R.id.item_category)).getSelectedItem().toString();
+                String description = ((EditText) view.findViewById(R.id.Description_input)).getText().toString();
+                boolean purchase = ((CheckBox) view.findViewById(R.id.Purchased)).isChecked();
+
+                ShoppingItem s = new ShoppingItem();
+
+                s.setName(name);
+                s.setCost(cost);
+                s.setCategory(category);
+                s.setDescription(description);
+                s.setPurchased(purchase);
+
+                insertItem(s); // TODO: replace shopping item
+                getDialog().dismiss();
             }
         });
         // Cancel Button
@@ -65,6 +84,47 @@ public class AddItemDialog extends DialogFragment implements AdapterView.OnItemS
         return view;
     }
 
+    public int getLastContactID(){
+        int lastID;
+        try{
+            String query = "Select MAX(_id) from " + ShoppingListContact.ShoppingListEntry.TABLE_NAME;
+            Cursor cursor = database.rawQuery(query, null);
+
+            cursor.moveToFirst();
+            lastID = cursor.getInt(0);
+            cursor.close();
+        }catch(Exception e){
+            lastID = -1;
+        }
+        return lastID;
+    }
+
+    public boolean insertItem(ShoppingItem s){
+        boolean didSucceed = false;
+        try{
+            Long id = (long) s.getItemID();
+            ContentValues initialValue = new ContentValues();
+
+            initialValue.put(ShoppingListContact.ShoppingListEntry.COLUMN_NAME, s.getName());
+            initialValue.put(ShoppingListContact.ShoppingListEntry.COLUMN_CATEGORY, s.getCategory());
+            initialValue.put(ShoppingListContact.ShoppingListEntry.COLUMN_COST, s.getCost());
+            initialValue.put(ShoppingListContact.ShoppingListEntry.COLUMN_DESCRIPTION, s.getDescription());
+            if(s.isPurchased())
+                initialValue.put(ShoppingListContact.ShoppingListEntry.COLUMN_PURCHASED, 1); // boolean as int
+            else
+                initialValue.put(ShoppingListContact.ShoppingListEntry.COLUMN_PURCHASED, 0); // boolean as int
+
+            didSucceed = database.insert(ShoppingListContact.ShoppingListEntry.TABLE_NAME, null, initialValue) > 0;
+        } catch(Exception e){
+            // no nothing
+        }
+        return didSucceed;
+    }
+
+    public boolean updateItem(){
+        return false;
+    }
+
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         // DO NOTHING
@@ -75,13 +135,5 @@ public class AddItemDialog extends DialogFragment implements AdapterView.OnItemS
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
         // Do nothing
-    }
-
-    public boolean insertItem(){
-        return false;
-    }
-
-    public boolean updateItem(){
-        return false;
     }
 }
