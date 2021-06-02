@@ -59,8 +59,9 @@ public class AddItemDialog extends DialogFragment implements AdapterView.OnItemS
         itemSpinner.setOnItemSelectedListener(this);
         initTextChangedEvents();
 
-        if(savedInstanceState != null)
-            initItem(savedInstanceState.getInt("itemID"));
+        Bundle bundle = getArguments();
+        if(bundle != null)
+            initItem(bundle.getInt("itemID"));
         else
             currentItem = new ShoppingItem();
 
@@ -69,22 +70,24 @@ public class AddItemDialog extends DialogFragment implements AdapterView.OnItemS
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String name = ((EditText) view.findViewById(R.id.Name_input)).getText().toString();
-                String cost = ((EditText) view.findViewById(R.id.Cost_input)).getText().toString();
-                String category = ((Spinner) view.findViewById(R.id.item_category)).getSelectedItem().toString();
-                String description = ((EditText) view.findViewById(R.id.Description_input)).getText().toString();
-                boolean purchase = ((CheckBox) view.findViewById(R.id.Purchased)).isChecked();
-
-                ShoppingItem s = new ShoppingItem();
-
-                s.setName(name);
-                s.setCost(cost);
-                s.setCategory(category);
-                s.setDescription(description);
-                s.setPurchased(purchase);
-
-                if(!ds.insertItem(s))
+                boolean wasSuccessful;
+                currentItem.setCost_temp(((EditText) view.findViewById(R.id.Cost_input)).getText().toString());
+                currentItem.setPurchased(((CheckBox) view.findViewById(R.id.Purchased)).isChecked());
+                if(currentItem.getName().trim() == ""){
+                    Toast.makeText(getContext(), "Please fill in the Name Field", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                try {
+                    if (currentItem.getItemID() == -1)
+                        wasSuccessful = ds.insertItem(currentItem);
+                    else
+                        wasSuccessful = ds.updateItem(currentItem);
+                }catch(Exception e){
+                    wasSuccessful = false;
+                }
+                if(!wasSuccessful){
                     Toast.makeText(getContext(), "Error", Toast.LENGTH_SHORT).show();
+                }
                 getDialog().dismiss();
             }
         });
@@ -129,23 +132,6 @@ public class AddItemDialog extends DialogFragment implements AdapterView.OnItemS
                 currentItem.setName(etItemName.getText().toString());
             }
         });
-        final EditText etItemCost = view.findViewById(R.id.Cost_input);
-        etItemCost.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                currentItem.setName(etItemName.getText().toString());
-            }
-        });
         final EditText etItemDescription = view.findViewById(R.id.Description_input);
         etItemDescription.addTextChangedListener(new TextWatcher() {
             @Override
@@ -160,7 +146,7 @@ public class AddItemDialog extends DialogFragment implements AdapterView.OnItemS
 
             @Override
             public void afterTextChanged(Editable s) {
-                currentItem.setName(etItemDescription.getText().toString());
+                currentItem.setDescription(etItemDescription.getText().toString());
             }
         });
         final Spinner etItemCategory = view.findViewById(R.id.item_category);
@@ -175,20 +161,9 @@ public class AddItemDialog extends DialogFragment implements AdapterView.OnItemS
 
             }
         });
-        final CheckBox etItemPurchased = view.findViewById(R.id.Purchased);
-        etItemPurchased.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(buttonView.isChecked())
-                    currentItem.setPurchased(true);
-                else
-                    currentItem.setPurchased(false);
-            }
-        });
     }
 
     private void initItem(int id){
-        ShoppingListSource ds = new ShoppingListSource(getContext());
         currentItem = ds.getSpecificItem(id);
         EditText editName = view.findViewById(R.id.Name_input);
         EditText editCost = view.findViewById(R.id.Cost_input);
@@ -197,7 +172,9 @@ public class AddItemDialog extends DialogFragment implements AdapterView.OnItemS
         CheckBox editPurchased = view.findViewById(R.id.Purchased);
 
         editName.setText(currentItem.getName());
-        editCost.setText(currentItem.getCost());
+        int cost = currentItem.getCost();
+        String costFormat = cost/100 + "." + cost%100;
+        editCost.setText(costFormat);
         editDescription.setText(currentItem.getDescription());
         if(currentItem.getCategory().equalsIgnoreCase("food"))
             editCategory.setSelection(0);

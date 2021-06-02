@@ -13,7 +13,7 @@ public class ShoppingItem {
     private int itemID;
     private String category;
     private String name;
-    private String cost;
+    private int cost;
     private String Description;
     private boolean purchased;
 
@@ -49,12 +49,17 @@ public class ShoppingItem {
         this.name = name;
     }
 
-    public String getCost() {
+    public int getCost() {
         return cost;
     }
 
-    public void setCost(String cost) {
+    public void setCost(int cost) {
         this.cost = cost;
+    }
+
+    public void setCost_temp(String cost_temp) {
+        double cst = Double.parseDouble(cost_temp);
+        this.cost = (int) (cst * 100);
     }
 
     public String getDescription() {

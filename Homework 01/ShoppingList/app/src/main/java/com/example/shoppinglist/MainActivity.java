@@ -23,11 +23,18 @@ import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.util.ArrayList;
+
 
 public class MainActivity extends AppCompatActivity {
     private SQLiteDatabase database;
     private ShoppingAdapter adapter;
-
+    private View.OnClickListener onItemClickListener = new View.OnClickListener(){
+        @Override
+        public void onClick(View v) {
+            Toast.makeText(v.getContext(), "Snip Snip", Toast.LENGTH_SHORT).show();
+        }
+    };
     /*
      * This method is called when the app is created
      */
@@ -38,15 +45,24 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         ShoppingListSource ds = new ShoppingListSource(this);
-        FragmentManager fm = null;
         try {
             ShoppingListDBHelper dbHelper = new ShoppingListDBHelper(this);
             ds.open();
             database = ds.getDatabase();
             RecyclerView recyclerView = findViewById(R.id.ShoppingList);
             recyclerView.setLayoutManager(new LinearLayoutManager(this));
-            fm = getSupportFragmentManager();
-            adapter = new ShoppingAdapter(this, ds.getAllItems());
+            adapter = new ShoppingAdapter(this, ds.getAllItems(), ds, new ShoppingAdapter.ShoppingAdapterListener() {
+                @Override
+                public void editButtonClick(View v, int position) {
+                    ArrayList<ShoppingItem> currentItems = ds.getItems();
+                    int itemID = currentItems.get(position).getItemID();
+                    AddItemDialog addItemDialog = new AddItemDialog(database, ds);
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("itemID", itemID);
+                    addItemDialog.setArguments(bundle);
+                    addItemDialog.show(getSupportFragmentManager(), "AddItem");
+                }
+            });
             ds.setmAdapter(adapter);
             recyclerView.setAdapter(adapter);
         } catch(Exception e){
@@ -66,12 +82,12 @@ public class MainActivity extends AppCompatActivity {
         });
 
         // Add Item Button which creates a dialog to input the item
-        FragmentManager finalFm = fm;
         buttonAddItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                FragmentManager fm = getSupportFragmentManager();
                 AddItemDialog addItemDialog = new AddItemDialog(database, ds);
-                addItemDialog.show(finalFm, "AddItem");
+                addItemDialog.show(fm, "AddItem");
             }
         });
     }

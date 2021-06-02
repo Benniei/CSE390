@@ -3,9 +3,12 @@
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/outer_container"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="8dp"
+    android:background="#EFD0D0"
     android:orientation="vertical"><![CDATA[>
 
     ]]>
@@ -64,6 +67,19 @@
                     android:text="Purchased"
                     android:textSize="12sp" />
 
+                <LinearLayout
+                    android:layout_width="154dp"
+                    android:layout_height="match_parent"
+                    android:gravity="right"
+                    android:orientation="vertical">
+
+                    <Button
+                        android:id="@+id/item_edit"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="Edit" />
+                </LinearLayout>
+
             </LinearLayout>
 
         </LinearLayout>
@@ -72,8 +88,13 @@
     <TextView
         android:id="@+id/item_description"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginLeft="40dp"
         android:layout_marginTop="4dp"
-        android:layout_weight="1" />
+        android:layout_weight="1"
+        android:textColor="#000000"
+        tools:visibility="gone" />
+
 
 </LinearLayout>

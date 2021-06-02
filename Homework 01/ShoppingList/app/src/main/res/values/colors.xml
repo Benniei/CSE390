@@ -8,4 +8,8 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="dialog_button_color">#26C6DA</color>
+    <color name="electronics">#D0E5EF</color>
+    <color name="books">#EFD0EC</color>
+    <color name="food">#D6EFD0</color>
+    <color name="others">#EFD0D0</color>
 </resources>

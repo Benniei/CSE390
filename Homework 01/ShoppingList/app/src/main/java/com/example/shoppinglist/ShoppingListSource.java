@@ -6,6 +6,8 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
+import java.util.ArrayList;
+
 public class ShoppingListSource {
     private SQLiteDatabase database;
     private ShoppingListDBHelper dbHelper;
@@ -98,27 +100,56 @@ public class ShoppingListSource {
                 null,
                 null,
                 null,
-                "_ID" + " DESC");
+                "_ID" + " ASC");
     }
 
     public ShoppingItem getSpecificItem(int shoppingID){
-        ShoppingItem item = new ShoppingItem();
-        String query = "SELECT * FROM " + ShoppingListContact.ShoppingListEntry.TABLE_NAME + " WHERE _id =" + shoppingID;
-        Cursor cursor = database.rawQuery(query, null);
+        ArrayList<ShoppingItem> items = getItems();
 
-        if(cursor.moveToFirst()){
-            item.setItemID(cursor.getInt(0));
-            item.setCategory(cursor.getString(1));
-            item.setName(cursor.getString(2));
-            item.setCost(cursor.getString(3));
-            item.setDescription(cursor.getString(4));
-            if(cursor.getInt(5) == 0)
-                item.setPurchased(false);
-            else
-                item.setPurchased(true);
-
-            cursor.close();
-        }
-        return item;
+        return items.get(shoppingID - 1);
     }
+
+    public boolean updatePurchased(ShoppingItem item){
+        boolean isSuccess;
+        ContentValues cv = new ContentValues();
+        if(!item.isPurchased()) {
+            item.setPurchased(true);
+            cv.put(ShoppingListContact.ShoppingListEntry.COLUMN_PURCHASED, 1);
+        }
+        else {
+            item.setPurchased(false);
+            cv.put(ShoppingListContact.ShoppingListEntry.COLUMN_PURCHASED, 0);
+        }
+        isSuccess = database.update(ShoppingListContact.ShoppingListEntry.TABLE_NAME, cv, "_id= " + item.getItemID(), null) > 0;
+        return isSuccess;
+    }
+
+    public ArrayList<ShoppingItem> getItems(){
+        ArrayList<ShoppingItem> items = new ArrayList<>();
+        try{
+            String query = "SELECT * FROM " + ShoppingListContact.ShoppingListEntry.TABLE_NAME;
+            Cursor cursor = database.rawQuery(query, null);
+
+            ShoppingItem newItem;
+            cursor.moveToFirst();
+            while(!cursor.isAfterLast()){
+                newItem = new ShoppingItem();
+                newItem.setItemID(cursor.getInt(0));
+                newItem.setCategory(cursor.getString(1));
+                newItem.setName(cursor.getString(2));
+                newItem.setCost(cursor.getInt(3));
+                newItem.setDescription(cursor.getString(4));
+                if(cursor.getInt(5) == 0)
+                    newItem.setPurchased(false);
+                else
+                    newItem.setPurchased(true);
+                items.add(newItem);
+                cursor.moveToNext();
+            }
+        }catch(Exception e){
+            items = new ArrayList<ShoppingItem>();
+        }
+        return items;
+    }
+
 }

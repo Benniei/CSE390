@@ -21,7 +21,7 @@ public class ShoppingListDBHelper extends SQLiteOpenHelper {
             ShoppingListEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
             ShoppingListEntry.COLUMN_CATEGORY + " TEXT NOT NULL, " +
             ShoppingListEntry.COLUMN_NAME + " TEXT NOT NULL, " +
-            ShoppingListEntry.COLUMN_COST + " TEXT, " +
+            ShoppingListEntry.COLUMN_COST + " INTEGER NOT NULL, " +
             ShoppingListEntry.COLUMN_DESCRIPTION + " TEXT, " +
             ShoppingListEntry.COLUMN_PURCHASED + " INTEGER NOT NULL" +
             ");";

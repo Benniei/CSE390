@@ -57,7 +57,7 @@
         android:layout_marginTop="10dp"
         android:ems="10"
         android:hint="Cost"
-        android:inputType="textPersonName" />
+        android:inputType="numberDecimal" />
 
     <EditText
         android:id="@+id/Description_input"
