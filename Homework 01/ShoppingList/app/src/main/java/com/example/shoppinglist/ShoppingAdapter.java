@@ -6,9 +6,11 @@
 
 package com.example.shoppinglist;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +21,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import org.jetbrains.annotations.NotNull;
@@ -38,7 +41,6 @@ public class ShoppingAdapter extends RecyclerView.Adapter<ShoppingAdapter.Shoppi
         public CheckBox purchasedBox;
         public ImageView categoryImage;
         public TextView descriptionText;
-
         public ShoppingViewHolder(@NonNull @NotNull View itemView) {
             super(itemView);
             nameText = itemView.findViewById(R.id.item_name);
@@ -46,6 +48,7 @@ public class ShoppingAdapter extends RecyclerView.Adapter<ShoppingAdapter.Shoppi
             purchasedBox = itemView.findViewById(R.id.item_purchased);
             categoryImage = itemView.findViewById(R.id.item_category_img);
             descriptionText = itemView.findViewById(R.id.item_description);
+
         }
 
         public TextView getNameText() {
@@ -121,10 +124,6 @@ public class ShoppingAdapter extends RecyclerView.Adapter<ShoppingAdapter.Shoppi
     public int getItemCount() {
         return cursor.getCount();
     }
-
-//    public void setOnItemClickListener(View.OnClickListener itemClickListener){
-//        mOnItemClickListener = itemClickListener;
-//    }
 
     public void swapCursor(Cursor newCursor){
         if(cursor != null)

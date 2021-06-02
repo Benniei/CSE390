@@ -64,19 +64,6 @@
                     android:text="Purchased"
                     android:textSize="12sp" />
 
-                <LinearLayout
-                    android:layout_width="154dp"
-                    android:layout_height="match_parent"
-                    android:gravity="right"
-                    android:orientation="vertical">
-
-                    <Button
-                        android:id="@+id/item_edit"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:text="Edit" />
-                </LinearLayout>
-
             </LinearLayout>
 
         </LinearLayout>

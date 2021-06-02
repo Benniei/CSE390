@@ -12,6 +12,8 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +21,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -28,8 +31,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class AddItemDialog extends DialogFragment implements AdapterView.OnItemSelectedListener {
     private SQLiteDatabase database;
-    public AddItemDialog(SQLiteDatabase database){
+    private ShoppingListSource ds;
+    private View view;
+    private ShoppingItem currentItem;
+
+    public AddItemDialog(SQLiteDatabase database, ShoppingListSource ds){
         this.database = database;
+        this.ds = ds;
     }
 
     /*
@@ -38,7 +46,7 @@ public class AddItemDialog extends DialogFragment implements AdapterView.OnItemS
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        final View view = inflater.inflate(R.layout.add_shopping_item, container);
+        view = inflater.inflate(R.layout.add_shopping_item, container);
 
         // Spinner for selecting options that are located in string.xml
         Spinner itemSpinner = view.findViewById(R.id.item_category);
@@ -49,6 +57,12 @@ public class AddItemDialog extends DialogFragment implements AdapterView.OnItemS
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         itemSpinner.setAdapter(adapter);
         itemSpinner.setOnItemSelectedListener(this);
+        initTextChangedEvents();
+
+        if(savedInstanceState != null)
+            initItem(savedInstanceState.getInt("itemID"));
+        else
+            currentItem = new ShoppingItem();
 
         // Save Button
         Button saveButton = view.findViewById(R.id.buttonSave);
@@ -69,7 +83,8 @@ public class AddItemDialog extends DialogFragment implements AdapterView.OnItemS
                 s.setDescription(description);
                 s.setPurchased(purchase);
 
-                insertItem(s); // TODO: replace shopping item
+                if(!ds.insertItem(s))
+                    Toast.makeText(getContext(), "Error", Toast.LENGTH_SHORT).show();
                 getDialog().dismiss();
             }
         });
@@ -84,47 +99,6 @@ public class AddItemDialog extends DialogFragment implements AdapterView.OnItemS
         return view;
     }
 
-    public int getLastContactID(){
-        int lastID;
-        try{
-            String query = "Select MAX(_id) from " + ShoppingListContact.ShoppingListEntry.TABLE_NAME;
-            Cursor cursor = database.rawQuery(query, null);
-
-            cursor.moveToFirst();
-            lastID = cursor.getInt(0);
-            cursor.close();
-        }catch(Exception e){
-            lastID = -1;
-        }
-        return lastID;
-    }
-
-    public boolean insertItem(ShoppingItem s){
-        boolean didSucceed = false;
-        try{
-            Long id = (long) s.getItemID();
-            ContentValues initialValue = new ContentValues();
-
-            initialValue.put(ShoppingListContact.ShoppingListEntry.COLUMN_NAME, s.getName());
-            initialValue.put(ShoppingListContact.ShoppingListEntry.COLUMN_CATEGORY, s.getCategory());
-            initialValue.put(ShoppingListContact.ShoppingListEntry.COLUMN_COST, s.getCost());
-            initialValue.put(ShoppingListContact.ShoppingListEntry.COLUMN_DESCRIPTION, s.getDescription());
-            if(s.isPurchased())
-                initialValue.put(ShoppingListContact.ShoppingListEntry.COLUMN_PURCHASED, 1); // boolean as int
-            else
-                initialValue.put(ShoppingListContact.ShoppingListEntry.COLUMN_PURCHASED, 0); // boolean as int
-
-            didSucceed = database.insert(ShoppingListContact.ShoppingListEntry.TABLE_NAME, null, initialValue) > 0;
-        } catch(Exception e){
-            // no nothing
-        }
-        return didSucceed;
-    }
-
-    public boolean updateItem(){
-        return false;
-    }
-
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         // DO NOTHING
@@ -135,5 +109,110 @@ public class AddItemDialog extends DialogFragment implements AdapterView.OnItemS
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
         // Do nothing
+    }
+
+    private void initTextChangedEvents(){
+        final EditText etItemName = view.findViewById(R.id.Name_input);
+        etItemName.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                currentItem.setName(etItemName.getText().toString());
+            }
+        });
+        final EditText etItemCost = view.findViewById(R.id.Cost_input);
+        etItemCost.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                currentItem.setName(etItemName.getText().toString());
+            }
+        });
+        final EditText etItemDescription = view.findViewById(R.id.Description_input);
+        etItemDescription.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                currentItem.setName(etItemDescription.getText().toString());
+            }
+        });
+        final Spinner etItemCategory = view.findViewById(R.id.item_category);
+        etItemCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                currentItem.setCategory(etItemCategory.getSelectedItem().toString());
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+        final CheckBox etItemPurchased = view.findViewById(R.id.Purchased);
+        etItemPurchased.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(buttonView.isChecked())
+                    currentItem.setPurchased(true);
+                else
+                    currentItem.setPurchased(false);
+            }
+        });
+    }
+
+    private void initItem(int id){
+        ShoppingListSource ds = new ShoppingListSource(getContext());
+        currentItem = ds.getSpecificItem(id);
+        EditText editName = view.findViewById(R.id.Name_input);
+        EditText editCost = view.findViewById(R.id.Cost_input);
+        EditText editDescription = view.findViewById(R.id.Description_input);
+        Spinner editCategory = view.findViewById(R.id.item_category);
+        CheckBox editPurchased = view.findViewById(R.id.Purchased);
+
+        editName.setText(currentItem.getName());
+        editCost.setText(currentItem.getCost());
+        editDescription.setText(currentItem.getDescription());
+        if(currentItem.getCategory().equalsIgnoreCase("food"))
+            editCategory.setSelection(0);
+        else if(currentItem.getCategory().equalsIgnoreCase("electronics"))
+            editCategory.setSelection(1);
+        else if(currentItem.getCategory().equalsIgnoreCase("books"))
+            editCategory.setSelection(2);
+        else if(currentItem.getCategory().equalsIgnoreCase("others"))
+            editCategory.setSelection(3);
+        else
+            editCategory.setSelection(0);
+
+        if(currentItem.isPurchased())
+            editPurchased.setChecked(true);
+        else
+            editPurchased.setChecked(false);
     }
 }

@@ -6,6 +6,7 @@
 
 package com.example.shoppinglist;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -36,13 +37,17 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().hide(); // Hides the toolbar on top
         setContentView(R.layout.activity_main);
 
+        ShoppingListSource ds = new ShoppingListSource(this);
+        FragmentManager fm = null;
         try {
             ShoppingListDBHelper dbHelper = new ShoppingListDBHelper(this);
-            database = dbHelper.getWritableDatabase();
-
+            ds.open();
+            database = ds.getDatabase();
             RecyclerView recyclerView = findViewById(R.id.ShoppingList);
             recyclerView.setLayoutManager(new LinearLayoutManager(this));
-            adapter = new ShoppingAdapter(this, getAllItems());
+            fm = getSupportFragmentManager();
+            adapter = new ShoppingAdapter(this, ds.getAllItems());
+            ds.setmAdapter(adapter);
             recyclerView.setAdapter(adapter);
         } catch(Exception e){
             Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show();
@@ -61,23 +66,13 @@ public class MainActivity extends AppCompatActivity {
         });
 
         // Add Item Button which creates a dialog to input the item
+        FragmentManager finalFm = fm;
         buttonAddItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FragmentManager fm = getSupportFragmentManager();
-                AddItemDialog addItemDialog = new AddItemDialog(database);
-                addItemDialog.show(fm, "AddItem");
+                AddItemDialog addItemDialog = new AddItemDialog(database, ds);
+                addItemDialog.show(finalFm, "AddItem");
             }
         });
-    }
-
-    private Cursor getAllItems(){
-        return database.query(ShoppingListContact.ShoppingListEntry.TABLE_NAME,
-                null,
-                null,
-                null,
-                null,
-                null,
-                "_id" + " DESC");
     }
 }
