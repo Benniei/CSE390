@@ -19,6 +19,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.media.Image;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
@@ -48,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
         // Buttons on the homepage
         ImageButton buttonSettings = findViewById(R.id.settings_button);
         FloatingActionButton buttonAddItem = findViewById(R.id.add_item);
+        ImageButton refreshButton = findViewById(R.id.refreshButton);
 
         // Settings Button initializing the setting which allows for sorting oft he Recycler List
         buttonSettings.setOnClickListener(new View.OnClickListener() {
@@ -66,6 +68,12 @@ public class MainActivity extends AppCompatActivity {
                 FragmentManager fm = getSupportFragmentManager();
                 AddItemDialog addItemDialog = new AddItemDialog(database, ds);
                 addItemDialog.show(fm, "AddItem");
+            }
+        });
+        refreshButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(getIntent());
             }
         });
     }
