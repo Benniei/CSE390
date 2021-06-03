@@ -6,10 +6,6 @@
 
 package com.example.shoppinglist;
 
-import android.content.ContentValues;
-import android.content.Context;
-import android.content.Intent;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.text.Editable;
@@ -21,13 +17,11 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.fragment.app.DialogFragment;
-import androidx.recyclerview.widget.RecyclerView;
 
 public class AddItemDialog extends DialogFragment implements AdapterView.OnItemSelectedListener {
     private SQLiteDatabase database;
@@ -71,12 +65,15 @@ public class AddItemDialog extends DialogFragment implements AdapterView.OnItemS
             @Override
             public void onClick(View v) {
                 boolean wasSuccessful;
-                currentItem.setCost_temp(((EditText) view.findViewById(R.id.Cost_input)).getText().toString());
-                currentItem.setPurchased(((CheckBox) view.findViewById(R.id.Purchased)).isChecked());
-                if(currentItem.getName().trim() == ""){
-                    Toast.makeText(getContext(), "Please fill in the Name Field", Toast.LENGTH_SHORT).show();
+                String name = ((EditText) view.findViewById(R.id.Name_input)).getText().toString();
+                String cost = ((EditText) view.findViewById(R.id.Cost_input)).getText().toString();
+                if(name.trim().matches("") || cost.trim().matches("")){
+                    Toast.makeText(getContext(), "Please fill in the Name and Cost Fields", Toast.LENGTH_SHORT).show();
                     return;
                 }
+                currentItem.setCost_temp(((EditText) view.findViewById(R.id.Cost_input)).getText().toString());
+                currentItem.setPurchased(((CheckBox) view.findViewById(R.id.Purchased)).isChecked());
+
                 try {
                     if (currentItem.getItemID() == -1)
                         wasSuccessful = ds.insertItem(currentItem);
@@ -92,7 +89,7 @@ public class AddItemDialog extends DialogFragment implements AdapterView.OnItemS
             }
         });
         // Cancel Button
-        Button cancelButton = view.findViewById(R.id.buttonCancel);
+        Button cancelButton = view.findViewById(R.id.buttonCancel_settings);
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

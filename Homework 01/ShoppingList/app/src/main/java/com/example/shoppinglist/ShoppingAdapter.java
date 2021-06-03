@@ -68,15 +68,17 @@ public class ShoppingAdapter extends RecyclerView.Adapter<ShoppingAdapter.Shoppi
             container = itemView.findViewById(R.id.outer_container);
             Button editButton = itemView.findViewById(R.id.item_edit);
 
+
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    isVisible = !isVisible;
-                    if(isVisible){
+                    if(!isVisible){
                         descriptionText.setVisibility(View.VISIBLE);
+                        isVisible = true;
                     }
                     else{
                         descriptionText.setVisibility(View.GONE);
+                        isVisible = false;
                     }
                 }
             });
@@ -90,7 +92,9 @@ public class ShoppingAdapter extends RecyclerView.Adapter<ShoppingAdapter.Shoppi
             purchasedBox.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    ArrayList<ShoppingItem> currentItems = ds.getItems();
+                    String sortBy =  context.getSharedPreferences("MyShoppingListPreferences", Context.MODE_PRIVATE).getString("sortfield", "recent");
+                    String sortOrder = context.getSharedPreferences("MyShoppingListPreferences", Context.MODE_PRIVATE).getString("sortorder", "ASC");
+                    ArrayList<ShoppingItem> currentItems = ds.getItems(sortBy, sortOrder);
                     int qPosition = getAdapterPosition();
                     ShoppingItem item = currentItems.get(qPosition);
                     if(!ds.updatePurchased(item))
@@ -139,7 +143,7 @@ public class ShoppingAdapter extends RecyclerView.Adapter<ShoppingAdapter.Shoppi
         String description = cursor.getString(cursor.getColumnIndex(ShoppingListContact.ShoppingListEntry.COLUMN_DESCRIPTION));
         String category = cursor.getString(cursor.getColumnIndex(ShoppingListContact.ShoppingListEntry.COLUMN_CATEGORY));
         int purchased = cursor.getInt(cursor.getColumnIndex(ShoppingListContact.ShoppingListEntry.COLUMN_PURCHASED));
-
+        long id = cursor.getLong(cursor.getColumnIndex(ShoppingListContact.ShoppingListEntry.ID));
         // Set the image
         if(category.equals("Food")){
             Drawable d = context.getResources().getDrawable(R.drawable.items_food);
@@ -163,16 +167,22 @@ public class ShoppingAdapter extends RecyclerView.Adapter<ShoppingAdapter.Shoppi
         }
 
         holder.nameText.setText(name);
-        String costFormat = cost/100 + "." + cost%100;
+        String costFormat;
+        if(cost%100 > 0)
+            costFormat = cost/100 + "." + cost%100;
+        else
+            costFormat = cost/100 + ".00";
         holder.costText.setText(costFormat);
         holder.descriptionText.setText(description);
-
-
 
         if(purchased == 1)
             holder.purchasedBox.setChecked(true);
         else if(purchased == 0)
             holder.purchasedBox.setChecked(false);
+
+        holder.descriptionText.setVisibility(View.GONE);
+        isVisible = false;
+        holder.itemView.setTag(id);
     }
 
     @Override

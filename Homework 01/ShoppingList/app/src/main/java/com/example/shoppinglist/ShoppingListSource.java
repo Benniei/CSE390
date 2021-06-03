@@ -12,8 +12,10 @@ public class ShoppingListSource {
     private SQLiteDatabase database;
     private ShoppingListDBHelper dbHelper;
     private ShoppingAdapter mAdapter;
+    private Context context;
 
     public ShoppingListSource(Context context){
+        this.context = context;
         dbHelper = new ShoppingListDBHelper(context);
     }
 
@@ -63,7 +65,9 @@ public class ShoppingListSource {
                 initialValue.put(ShoppingListContact.ShoppingListEntry.COLUMN_PURCHASED, 0); // boolean as int
 
             didSucceed = database.insert(ShoppingListContact.ShoppingListEntry.TABLE_NAME, null, initialValue) > 0;
-            mAdapter.swapCursor(getAllItems());
+            String sortBy =  context.getSharedPreferences("MyShoppingListPreferences", Context.MODE_PRIVATE).getString("sortfield", "recent");
+            String sortOrder = context.getSharedPreferences("MyShoppingListPreferences", Context.MODE_PRIVATE).getString("sortorder", "ASC");
+            mAdapter.swapCursor(getAllItems(sortBy, sortOrder));
         } catch(Exception e){
             // no nothing
         }
@@ -86,27 +90,36 @@ public class ShoppingListSource {
                 updateValue.put(ShoppingListContact.ShoppingListEntry.COLUMN_PURCHASED, 0); // boolean as int
 
             didSucceed = database.update(ShoppingListContact.ShoppingListEntry.TABLE_NAME, updateValue, "_id=" + id, null) > 0;
-            mAdapter.swapCursor(getAllItems());
+            String sortBy =  context.getSharedPreferences("MyShoppingListPreferences", Context.MODE_PRIVATE).getString("sortfield", "recent");
+            String sortOrder = context.getSharedPreferences("MyShoppingListPreferences", Context.MODE_PRIVATE).getString("sortorder", "ASC");
+            mAdapter.swapCursor(getAllItems(sortBy, sortOrder));
         } catch(Exception e){
             // no nothing
         }
         return didSucceed;
     }
 
-    public Cursor getAllItems(){
+    public Cursor getAllItems(String sortBy, String sortOrder){
+        if(sortBy.equalsIgnoreCase("recent"))
+            sortBy = "_id";
         return database.query(ShoppingListContact.ShoppingListEntry.TABLE_NAME,
                 null,
                 null,
                 null,
                 null,
                 null,
-                "_ID" + " ASC");
+                sortBy + " " + sortOrder);
     }
 
     public ShoppingItem getSpecificItem(int shoppingID){
-        ArrayList<ShoppingItem> items = getItems();
-
-        return items.get(shoppingID - 1);
+        String sortBy =  context.getSharedPreferences("MyShoppingListPreferences", Context.MODE_PRIVATE).getString("sortfield", "recent");
+        String sortOrder = context.getSharedPreferences("MyShoppingListPreferences", Context.MODE_PRIVATE).getString("sortorder", "ASC");
+        ArrayList<ShoppingItem> items = getItems(sortBy, sortOrder);
+        for (ShoppingItem i: items) {
+            if (i.getItemID() == shoppingID)
+                return i;
+        }
+        return new ShoppingItem();
     }
 
     public boolean updatePurchased(ShoppingItem item){
@@ -124,10 +137,10 @@ public class ShoppingListSource {
         return isSuccess;
     }
 
-    public ArrayList<ShoppingItem> getItems(){
+    public ArrayList<ShoppingItem> getItems(String sortBy, String sortOrder){
         ArrayList<ShoppingItem> items = new ArrayList<>();
         try{
-            String query = "SELECT * FROM " + ShoppingListContact.ShoppingListEntry.TABLE_NAME;
+            String query = "SELECT * FROM " + ShoppingListContact.ShoppingListEntry.TABLE_NAME + " ORDER BY " + sortBy + " " + sortOrder;
             Cursor cursor = database.rawQuery(query, null);
 
             ShoppingItem newItem;
@@ -150,6 +163,13 @@ public class ShoppingListSource {
             items = new ArrayList<ShoppingItem>();
         }
         return items;
+    }
+    public void removeItem(long id){
+        database.delete(ShoppingListContact.ShoppingListEntry.TABLE_NAME,
+                ShoppingListContact.ShoppingListEntry.ID + "=" + id, null);
+        String sortBy =  context.getSharedPreferences("MyShoppingListPreferences", Context.MODE_PRIVATE).getString("sortfield", "recent");
+        String sortOrder = context.getSharedPreferences("MyShoppingListPreferences", Context.MODE_PRIVATE).getString("sortorder", "ASC");
+        mAdapter.swapCursor(getAllItems(sortBy, sortOrder));
     }
 
 }

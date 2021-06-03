@@ -9,9 +9,7 @@
     android:layout_height="wrap_content"
     android:layout_margin="8dp"
     android:background="#EFD0D0"
-    android:orientation="vertical"><![CDATA[>
-
-    ]]>
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
