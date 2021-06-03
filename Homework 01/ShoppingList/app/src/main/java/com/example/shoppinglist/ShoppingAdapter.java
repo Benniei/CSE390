@@ -47,6 +47,9 @@ public class ShoppingAdapter extends RecyclerView.Adapter<ShoppingAdapter.Shoppi
         isVisible = false;
     }
 
+    /**
+     * Interface used for the edit button whose logic will be performed in main activity
+     */
     public interface ShoppingAdapterListener {
         void editButtonClick(View v, int position);
     }
@@ -58,6 +61,11 @@ public class ShoppingAdapter extends RecyclerView.Adapter<ShoppingAdapter.Shoppi
         public ImageView categoryImage;
         public TextView descriptionText;
         public LinearLayout container;
+
+        /**
+         * Constructor for a single shopping Item
+         * @param itemView The view of this item
+         */
         public ShoppingViewHolder(@NonNull @NotNull View itemView) {
             super(itemView);
             nameText = itemView.findViewById(R.id.item_name);
@@ -84,12 +92,20 @@ public class ShoppingAdapter extends RecyclerView.Adapter<ShoppingAdapter.Shoppi
             });
 
             editButton.setOnClickListener(new View.OnClickListener() {
+                /**
+                 * Opens a dialog for editing
+                 * @param v current view
+                 */
                 @Override
                 public void onClick(View v) {
                     onClickListener.editButtonClick(v, getAdapterPosition());
                 }
             });
             purchasedBox.setOnClickListener(new View.OnClickListener() {
+                /**
+                 * Sets the purchased status of the item
+                 * @param v current view
+                 */
                 @Override
                 public void onClick(View v) {
                     String sortBy =  context.getSharedPreferences("MyShoppingListPreferences", Context.MODE_PRIVATE).getString("sortfield", "recent");
@@ -124,6 +140,12 @@ public class ShoppingAdapter extends RecyclerView.Adapter<ShoppingAdapter.Shoppi
         }
     }
 
+    /**
+     * Specifies the row layout file
+     * @param parent View group of the parent
+     * @param viewType View type
+     * @return Shopping View Holder
+     */
     @NonNull
     @NotNull
     @Override
@@ -132,6 +154,12 @@ public class ShoppingAdapter extends RecyclerView.Adapter<ShoppingAdapter.Shoppi
         return new ShoppingViewHolder(v);
     }
 
+    /**
+     * Loads the data fro each element
+     *
+     * @param holder Viewholder that holds the recycler list
+     * @param position position of the item in the recycler list
+     */
     @Override
     public void onBindViewHolder(@NonNull @NotNull ShoppingAdapter.ShoppingViewHolder holder, int position) {
         if (!cursor.moveToPosition(position)) {
@@ -185,11 +213,17 @@ public class ShoppingAdapter extends RecyclerView.Adapter<ShoppingAdapter.Shoppi
         holder.itemView.setTag(id);
     }
 
+    /**
+     * This method gets the number of items current in the database
+     */
     @Override
     public int getItemCount() {
         return cursor.getCount();
     }
 
+    /**
+     * This method swaps the cursor for a new cursor indicating a change in the list.
+     */
     public void swapCursor(Cursor newCursor){
         if(cursor != null)
             cursor.close();

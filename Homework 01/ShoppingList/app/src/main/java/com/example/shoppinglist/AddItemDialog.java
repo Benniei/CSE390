@@ -34,7 +34,7 @@ public class AddItemDialog extends DialogFragment implements AdapterView.OnItemS
         this.ds = ds;
     }
 
-    /*
+    /**
      * This method creates the dialog and initializes the Spinner and the Cancel and Save Buttons
      */
     @Override
@@ -111,6 +111,9 @@ public class AddItemDialog extends DialogFragment implements AdapterView.OnItemS
         // Do nothing
     }
 
+    /**
+     * This method checks for changes in the text field and puts them into the current Item object
+     */
     private void initTextChangedEvents(){
         final EditText etItemName = view.findViewById(R.id.Name_input);
         etItemName.addTextChangedListener(new TextWatcher() {
@@ -160,6 +163,10 @@ public class AddItemDialog extends DialogFragment implements AdapterView.OnItemS
         });
     }
 
+    /*
+     * This method initiates the item that has already existed and is being edited
+     * @param id ID of the item in the database
+     */
     private void initItem(int id){
         currentItem = ds.getSpecificItem(id);
         EditText editName = view.findViewById(R.id.Name_input);

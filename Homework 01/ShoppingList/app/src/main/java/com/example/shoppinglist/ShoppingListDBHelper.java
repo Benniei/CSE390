@@ -26,15 +26,29 @@ public class ShoppingListDBHelper extends SQLiteOpenHelper {
             ShoppingListEntry.COLUMN_PURCHASED + " INTEGER NOT NULL" +
             ");";
 
+    /**
+     * Constructor for the DB helper
+     * @param context parent context
+     */
     public ShoppingListDBHelper(Context context){
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
+    /**
+     * This method creates the database
+     * @param db database to be created
+     */
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(CREATE_TABLE_CONTACT);
     }
 
+    /**
+     * This method is used to make changes to the database
+     * @param db The new database
+     * @param oldVersion The version of the current database
+     * @param newVersion The Versio of the new database
+     */
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " +  ShoppingListEntry.TABLE_NAME);

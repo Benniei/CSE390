@@ -17,7 +17,7 @@ public class ShoppingItem {
     private String Description;
     private boolean purchased;
 
-    /*
+    /**
      * Constructors initializes a Shopping Item and sets the default ID value and purchased boolean value
      */
     public ShoppingItem() {

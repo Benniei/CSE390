@@ -16,7 +16,7 @@ public class ShoppingListContact {
 
     private ShoppingListContact(){}
 
-    /*
+    /**
      * This class stores the constants that be being used in the SHopping List Database
      */
     public static final class ShoppingListEntry implements BaseColumns {

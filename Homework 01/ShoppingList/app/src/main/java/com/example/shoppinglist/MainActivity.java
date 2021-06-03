@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
     private ShoppingAdapter adapter;
     private ShoppingListSource ds;
 
-    /*
+    /**
      * This method is called when the app is created
      */
     @Override
@@ -78,6 +78,9 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * This app is called when the app resumess
+     */
     public void onResume(){
         super.onResume();
 
