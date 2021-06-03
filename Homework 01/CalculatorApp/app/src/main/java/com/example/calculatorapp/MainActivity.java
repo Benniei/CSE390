@@ -16,7 +16,7 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
-    /*
+    /**
      * This method is called when the app is created and initiates all the buttons and also sets up the layout
      *
      * @param savedInstanceState Bundle Object that passes in the saved Instance State
@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
         initDivideButton();
     }
 
-    /*
+    /**
      * Initiates the add button which takes 2 inputs and computes addition
      */
     private void initAddButton(){
@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    /*
+    /**
      * Initiates the subtract button which takes 2 inputs and computes subtraction
      */
     private void initSubtractButton(){
@@ -85,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    /*
+    /**
      * Initiates the multiply button which takes 2 inputs and computes multiplication
      */
     private void initMultiplyButton(){
@@ -112,7 +112,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    /*
+    /**
      * Initiates the divide button which takes 2 inputs and computer division (Checks for divide by 0)
      */
     private void initDivideButton(){

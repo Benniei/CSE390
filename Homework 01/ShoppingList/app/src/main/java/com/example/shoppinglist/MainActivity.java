@@ -39,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * This method is called when the app is created
+     * @param savedInstanceState Bundle Object which contains the saved Instance State
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {

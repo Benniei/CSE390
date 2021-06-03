@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
 
     private int answer;
 
-    /*
+    /**
      * This method is called when the app is first opened and it sets the layouts and initiates all the buttons
      *
      * @param savedInstanceState Bundle Object that represents the instance State
@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
         initNewGameButton();
     }
 
-    /*
+    /**
      * This method initiates the Guess method which will check the Input field to see if it is the same as the random number
      */
     private void initGuessButton() {
@@ -94,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    /*
+    /**
      * The method initiates the Answer Button which will display the answer and empty the number of tries
      */
     private void initAnswerButton() {
@@ -115,7 +115,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    /*
+    /**
      * This method initiates the New Game button which will restart the game by getting a new answer and resetting the number of tries
      */
     private void initNewGameButton() {
