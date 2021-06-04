@@ -6,19 +6,21 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+
     <LinearLayout
         android:id="@+id/linearLayout"
-        android:layout_width="334dp"
-        android:layout_height="169dp"
-        android:layout_marginEnd="36dp"
-        android:layout_marginRight="36dp"
+        android:layout_width="322dp"
+        android:layout_height="172dp"
+        android:layout_marginTop="8dp"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
-        tools:layout_editor_absoluteY="147dp">
+        app:layout_constraintHorizontal_bias="0.493"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Location">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="115dp"
             android:orientation="horizontal">
 
             <LinearLayout
@@ -45,9 +47,12 @@
 
             <ImageView
                 android:id="@+id/Weather_img"
-                android:layout_width="135dp"
-                android:layout_height="match_parent"
-                app:srcCompat="@drawable/ic_launcher_foreground" />
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_gravity="center"
+                android:layout_marginStart="10sp"
+                android:layout_marginLeft="10sp"
+                app:srcCompat="@android:drawable/ic_lock_lock" />
 
         </LinearLayout>
 
@@ -58,7 +63,7 @@
             android:layout_marginTop="5sp"
             android:layout_marginBottom="5sp"
             android:gravity="center"
-            android:text="TextView"
+            android:text="Sunrise"
             tools:text="Sunrise" />
 
         <TextView
@@ -73,21 +78,19 @@
         android:id="@+id/Location"
         android:layout_width="277dp"
         android:layout_height="58dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="16dp"
         android:gravity="center"
         android:text="Location"
         android:textSize="42sp"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.714" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/City_input"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="68dp"
+        android:layout_marginTop="16dp"
         android:ems="10"
         android:hint="Enter a City"
         android:inputType="textPersonName"
@@ -100,11 +103,34 @@
         android:id="@+id/seeWeather"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="240dp"
+        android:layout_marginBottom="4dp"
         android:text="See Weather"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Invalid"
+        app:layout_constraintVertical_bias="0.052" />
+
+    <Switch
+        android:id="@+id/temp_switch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Unit"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.867"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.345" />
+
+    <TextView
+        android:id="@+id/Invalid"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#FF0000"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/City_input" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
