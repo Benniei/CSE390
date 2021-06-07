@@ -95,6 +95,7 @@ public class MainActivity extends AppCompatActivity {
             database = ds.getDatabase();
             RecyclerView recyclerView = findViewById(R.id.ShoppingList);
             recyclerView.setLayoutManager(new LinearLayoutManager(this));
+            recyclerView.setNestedScrollingEnabled(true);
             adapter = new ShoppingAdapter(this, ds.getAllItems(sortBy, sortOrder), ds, new ShoppingAdapter.ShoppingAdapterListener() {
                 @Override
                 public void editButtonClick(View v, int position) {
