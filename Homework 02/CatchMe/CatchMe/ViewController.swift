@@ -15,7 +15,9 @@ class ViewController: UIViewController {
     @IBOutlet weak var sender: UIButton!
     @IBOutlet weak var zone: UIImageView!
     @IBOutlet weak var playAgainButton: UIButton!
+    @IBOutlet weak var treis: UILabel!
     var count = 0
+    var tries = 12
     
     private var regionminX: CGFloat = 0
     private var regionminY: CGFloat = 0
@@ -28,6 +30,7 @@ class ViewController: UIViewController {
         playAgainButton.isHidden = true
         zone.layer.zPosition = 0
         sender.layer.zPosition = 1
+        treis.text = "Tries: \(tries)"
     }
 
     
@@ -43,9 +46,17 @@ class ViewController: UIViewController {
         count += 1
         let output = "Score: \(count)"
         score.text = output
+        tries -= 1
+        treis.text = "Tries: \(tries)"
         if(checkInZone(randomX, randomY)){
             score.text = "Congrats\nScore: \(count)"
             sender.isEnabled = false // Disables the button
+            playAgainButton.isHidden = false
+            return;
+        }
+        if(tries == 0){
+            treis.text = "No Tries Left"
+            sender.isEnabled = false
             playAgainButton.isHidden = false
         }
     }
@@ -59,6 +70,7 @@ class ViewController: UIViewController {
         let setY = (maxY-minY) * 3/5
         sender.center = .init(x: setX, y: setY)
         count = 0
+        tries = 12
         sender.isEnabled = true
         playAgainButton.isHidden = true
     }
@@ -77,12 +89,32 @@ class ViewController: UIViewController {
     }
     
     private func checkInZone(_ x: CGFloat, _ y: CGFloat) -> Bool{
+        let halfWidth = sender.bounds.width/2.0
+        let halfHeight = sender.bounds.width/2.0
         if x > regionminX && x < regionmaxX && y > regionminY && y < regionmaxY {
             return true;
         }
-        else {
-            return false;
+        var newX = x - halfWidth
+        var newY = y - halfHeight
+        if newX > regionminX && newX < regionmaxX && newY > regionminY && newY < regionmaxY{
+            return true;
         }
+        newX = x + halfWidth
+        newY = y - halfHeight
+        if newX > regionminX && newX < regionmaxX && newY > regionminY && newY < regionmaxY{
+            return true;
+        }
+        newX = x - halfWidth
+        newY = y + halfHeight
+        if newX > regionminX && newX < regionmaxX && newY > regionminY && newY < regionmaxY{
+            return true;
+        }
+        newX = x + halfWidth
+        newY = y + halfHeight
+        if newX > regionminX && newX < regionmaxX && newY > regionminY && newY < regionmaxY{
+            return true;
+        }
+        return false;
     }
     
     @IBAction func catchMeButtonTapped(_ sender: Any) {

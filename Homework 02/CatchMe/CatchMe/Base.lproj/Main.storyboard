@@ -19,6 +19,7 @@
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ywa-kz-KUx">
                                 <rect key="frame" x="267" y="449" width="74" height="66"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="1" green="0.65736337877740647" blue="0.68459038513274084" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <state key="normal" backgroundImage="gearshape" catalog="system"/>
                                 <connections>
                                     <action selector="catchMeButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="JO8-QN-wgK"/>
@@ -32,7 +33,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iGb-1f-X9X">
-                                <rect key="frame" x="172" y="103" width="71" height="30"/>
+                                <rect key="frame" x="172" y="126" width="71" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Play Again"/>
                                 <connections>
@@ -45,6 +46,13 @@
                                 <color key="backgroundColor" red="0.6162395584642133" green="0.9822769122943924" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <color key="tintColor" systemColor="linkColor"/>
                             </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Tries" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HEu-B9-dqv">
+                                <rect key="frame" x="159" y="103" width="96" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -54,6 +62,7 @@
                         <outlet property="safe" destination="8bC-Xf-vdC" id="SB1-36-vRH"/>
                         <outlet property="score" destination="5fM-eS-ACo" id="C90-qB-SC8"/>
                         <outlet property="sender" destination="Ywa-kz-KUx" id="RpD-R2-7wM"/>
+                        <outlet property="treis" destination="HEu-B9-dqv" id="NZp-X9-sob"/>
                         <outlet property="view" destination="8bC-Xf-vdC" id="5mZ-cb-vRa"/>
                         <outlet property="zone" destination="7fB-VN-BSs" id="4P9-cf-Qd9"/>
                     </connections>
