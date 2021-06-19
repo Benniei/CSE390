@@ -23,6 +23,7 @@ class CategoryInnerTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.title? = category
+        self.navigationItem.leftBarButtonItem = self.editButtonItem
         loadDataFromDatabase()
     }
     
@@ -73,7 +74,11 @@ class CategoryInnerTableViewController: UITableViewController {
         formatter.dateStyle = .short
         formatter.setLocalizedDateFormatFromTemplate("MM/dd")
         cell.dateView?.text = formatter.string(from: (event.date)!)
-        
+        let delta = (event.date)!.timeIntervalSinceReferenceDate - Date().timeIntervalSinceReferenceDate
+        if delta < (3600 * 24) {
+            cell.assignmentView?.textColor = UIColor.red
+            cell.dateView?.textColor = UIColor.red
+        }
         return cell
     }
     
@@ -86,17 +91,25 @@ class CategoryInnerTableViewController: UITableViewController {
     }
     */
 
-    /*
+    
     // Override to support editing the table view.
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            // Delete the row from the data source
+            let task = tasks[indexPath.row] as? Task
+            let context = appDelegate.persistentContainer.viewContext
+            context.delete(task!)
+            do {
+                try context.save()
+            } catch {
+                fatalError("Error Saving Context \(error)")
+            }
+            loadDataFromDatabase()
             tableView.deleteRows(at: [indexPath], with: .fade)
         } else if editingStyle == .insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
         }    
     }
-    */
+
 
     /*
     // Override to support rearranging the table view.

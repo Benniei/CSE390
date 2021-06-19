@@ -150,7 +150,11 @@
                                     <segue destination="YF1-Bd-cN0" kind="show" id="PJm-1h-G1q"/>
                                 </connections>
                             </barButtonItem>
-                            <barButtonItem title="Item" image="list.triangle" catalog="system" id="10s-ld-Ljt"/>
+                            <barButtonItem title="Item" image="list.triangle" catalog="system" id="10s-ld-Ljt">
+                                <connections>
+                                    <segue destination="MSu-Zk-Be3" kind="show" id="VpC-cc-9Xk"/>
+                                </connections>
+                            </barButtonItem>
                         </rightBarButtonItems>
                     </navigationItem>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
@@ -247,7 +251,7 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" translatesAutoresizingMaskIntoConstraints="NO" id="g87-EA-bKa">
+                                            <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" translatesAutoresizingMaskIntoConstraints="NO" id="g87-EA-bKa">
                                                 <rect key="frame" x="101" y="0.5" width="220" height="216"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="220" id="quX-Ki-5ce"/>
@@ -280,6 +284,87 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RpM-jy-TD9" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="212" y="2330"/>
+        </scene>
+        <!--Settings-->
+        <scene sceneID="FDr-cU-ff9">
+            <objects>
+                <viewController id="MSu-Zk-Be3" customClass="SettingViewController" customModule="Planner" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="SOw-I3-bsV">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="oif-cy-BGP">
+                                <rect key="frame" x="47" y="234" width="320" height="349.5"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="19" translatesAutoresizingMaskIntoConstraints="NO" id="xLy-U7-QcF">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="255.5"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sort Field" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iOj-s2-CkL">
+                                                <rect key="frame" x="0.0" y="0.0" width="73" height="20.5"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zKH-a7-3yd">
+                                                <rect key="frame" x="0.0" y="39.5" width="320" height="216"/>
+                                            </pickerView>
+                                        </subviews>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="28" translatesAutoresizingMaskIntoConstraints="NO" id="wTk-Ba-QRn">
+                                        <rect key="frame" x="63" y="271.5" width="194.5" height="31"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ascending Sort" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pj3-mv-rLd">
+                                                <rect key="frame" x="0.0" y="0.0" width="117.5" height="31"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9tr-2A-JHD">
+                                                <rect key="frame" x="145.5" y="0.0" width="51" height="31"/>
+                                                <connections>
+                                                    <action selector="sortDirectionChanged:" destination="MSu-Zk-Be3" eventType="valueChanged" id="eqY-CN-02p"/>
+                                                </connections>
+                                            </switch>
+                                        </subviews>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="35" translatesAutoresizingMaskIntoConstraints="NO" id="fre-IN-m7x">
+                                        <rect key="frame" x="64" y="318.5" width="192" height="31"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hide Past Due" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7ad-Kd-E5j">
+                                                <rect key="frame" x="0.0" y="0.0" width="108" height="31"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ucY-zz-izT">
+                                                <rect key="frame" x="143" y="0.0" width="51" height="31"/>
+                                                <connections>
+                                                    <action selector="hidePastDueChanged:" destination="MSu-Zk-Be3" eventType="valueChanged" id="sUQ-3C-BXu"/>
+                                                </connections>
+                                            </switch>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="67v-cR-Pvc"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="oif-cy-BGP" firstAttribute="leading" secondItem="67v-cR-Pvc" secondAttribute="leading" constant="47" id="0H0-Yz-3Dc"/>
+                            <constraint firstItem="oif-cy-BGP" firstAttribute="top" secondItem="67v-cR-Pvc" secondAttribute="top" constant="146" id="Mid-qw-agi"/>
+                            <constraint firstItem="67v-cR-Pvc" firstAttribute="bottom" secondItem="oif-cy-BGP" secondAttribute="bottom" constant="229.5" id="tpM-oE-hXl"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Settings" id="hlO-LX-nJK"/>
+                    <connections>
+                        <outlet property="pckSortField" destination="zKH-a7-3yd" id="H0H-Tl-dOg"/>
+                        <outlet property="swAscending" destination="9tr-2A-JHD" id="DxX-Fc-GXW"/>
+                        <outlet property="swHide" destination="ucY-zz-izT" id="ySA-Ai-azC"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="QxF-xK-gDu" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-572.46376811594212" y="1629.9107142857142"/>
         </scene>
         <!--<Category>-->
         <scene sceneID="qej-v3-Gvk">

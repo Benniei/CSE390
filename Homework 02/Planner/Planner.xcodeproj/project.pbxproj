@@ -11,9 +11,10 @@
 		3B6EB853267BD27400979E6A /* CategoryInnerTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6EB852267BD27400979E6A /* CategoryInnerTableViewController.swift */; };
 		3B6EB855267BD43C00979E6A /* AssignmentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6EB854267BD43C00979E6A /* AssignmentsViewController.swift */; };
 		3BD740D1267D9307006836CE /* AssignmentTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD740D0267D9307006836CE /* AssignmentTableViewController.swift */; };
+		3BD740D3267DC5FA006836CE /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD740D2267DC5FA006836CE /* SettingViewController.swift */; };
+		3BD740D5267DC9C1006836CE /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD740D4267DC9C1006836CE /* Constants.swift */; };
 		3BDAAE192672D01D00A1D356 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BDAAE182672D01D00A1D356 /* AppDelegate.swift */; };
 		3BDAAE1B2672D01D00A1D356 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BDAAE1A2672D01D00A1D356 /* SceneDelegate.swift */; };
-		3BDAAE1D2672D01D00A1D356 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BDAAE1C2672D01D00A1D356 /* ViewController.swift */; };
 		3BDAAE202672D01D00A1D356 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3BDAAE1E2672D01D00A1D356 /* Main.storyboard */; };
 		3BDAAE232672D01D00A1D356 /* Planner.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3BDAAE212672D01D00A1D356 /* Planner.xcdatamodeld */; };
 		3BDAAE252672D01E00A1D356 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3BDAAE242672D01E00A1D356 /* Assets.xcassets */; };
@@ -25,10 +26,11 @@
 		3B6EB852267BD27400979E6A /* CategoryInnerTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryInnerTableViewController.swift; sourceTree = "<group>"; };
 		3B6EB854267BD43C00979E6A /* AssignmentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssignmentsViewController.swift; sourceTree = "<group>"; };
 		3BD740D0267D9307006836CE /* AssignmentTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssignmentTableViewController.swift; sourceTree = "<group>"; };
+		3BD740D2267DC5FA006836CE /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
+		3BD740D4267DC9C1006836CE /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		3BDAAE152672D01D00A1D356 /* Planner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Planner.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3BDAAE182672D01D00A1D356 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3BDAAE1A2672D01D00A1D356 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		3BDAAE1C2672D01D00A1D356 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		3BDAAE1F2672D01D00A1D356 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		3BDAAE222672D01D00A1D356 /* Planner.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Planner.xcdatamodel; sourceTree = "<group>"; };
 		3BDAAE242672D01E00A1D356 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -69,8 +71,9 @@
 				3BDAAE182672D01D00A1D356 /* AppDelegate.swift */,
 				3BD740D0267D9307006836CE /* AssignmentTableViewController.swift */,
 				3BDAAE1A2672D01D00A1D356 /* SceneDelegate.swift */,
-				3BDAAE1C2672D01D00A1D356 /* ViewController.swift */,
 				3BDAAE1E2672D01D00A1D356 /* Main.storyboard */,
+				3BD740D2267DC5FA006836CE /* SettingViewController.swift */,
+				3BD740D4267DC9C1006836CE /* Constants.swift */,
 				3B6EB854267BD43C00979E6A /* AssignmentsViewController.swift */,
 				3B6EB852267BD27400979E6A /* CategoryInnerTableViewController.swift */,
 				3B6EB850267BD24400979E6A /* CategoryTableViewController.swift */,
@@ -154,12 +157,13 @@
 			files = (
 				3B6EB853267BD27400979E6A /* CategoryInnerTableViewController.swift in Sources */,
 				3BDAAE232672D01D00A1D356 /* Planner.xcdatamodeld in Sources */,
-				3BDAAE1D2672D01D00A1D356 /* ViewController.swift in Sources */,
 				3BDAAE192672D01D00A1D356 /* AppDelegate.swift in Sources */,
+				3BD740D3267DC5FA006836CE /* SettingViewController.swift in Sources */,
 				3BDAAE1B2672D01D00A1D356 /* SceneDelegate.swift in Sources */,
 				3B6EB855267BD43C00979E6A /* AssignmentsViewController.swift in Sources */,
 				3BD740D1267D9307006836CE /* AssignmentTableViewController.swift in Sources */,
 				3B6EB851267BD24400979E6A /* CategoryTableViewController.swift in Sources */,
+				3BD740D5267DC9C1006836CE /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
