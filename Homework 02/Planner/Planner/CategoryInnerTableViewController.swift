@@ -6,40 +6,77 @@
 //
 
 import UIKit
+import CoreData
+
+class AssignmentInnerViewCell: UITableViewCell{
+    @IBOutlet weak var assignmentView: UILabel!
+    @IBOutlet weak var categoryView: UILabel!
+    @IBOutlet weak var dateView: UILabel!
+}
 
 class CategoryInnerTableViewController: UITableViewController {
-
+    
+    var category: String = ""
+    var tasks: [NSManagedObject] = []
+    let appDelegate = UIApplication.shared.delegate as! AppDelegate
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        self.navigationItem.title? = category
+        loadDataFromDatabase()
     }
-
+    
+    override func viewWillAppear(_ animated: Bool) {
+        loadDataFromDatabase()
+        tableView.reloadData()
+    }
+        
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+    }
+    
+    func loadDataFromDatabase() {
+        let context = appDelegate.persistentContainer.viewContext
+        let request = NSFetchRequest<NSManagedObject>(entityName: "Task")
+        let sortDescriptor = NSSortDescriptor(key: "date", ascending: true)
+        let sortDescriptorArray = [sortDescriptor]
+        request.sortDescriptors = sortDescriptorArray
+        let predicate = NSPredicate(format: "category = %@", category)
+        request.predicate = predicate
+        do{
+            tasks = try context.fetch(request)
+        } catch let error as NSError {
+            print("Could not fetch \(error)")
+        }
+    }
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 0
+        return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 0
+        return tasks.count
     }
 
-    /*
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "SpecificCategorryCell", for: indexPath) as! AssignmentInnerViewCell
 
         // Configure the cell...
-
+        let event = tasks[indexPath.row] as! Task
+        cell.assignmentView?.text = event.assignment
+        cell.categoryView?.text = event.category
+        let formatter = DateFormatter()
+        formatter.dateStyle = .short
+        formatter.setLocalizedDateFormatFromTemplate("MM/dd")
+        cell.dateView?.text = formatter.string(from: (event.date)!)
+        
         return cell
     }
-    */
+    
 
     /*
     // Override to support conditional editing of the table view.
@@ -76,14 +113,20 @@ class CategoryInnerTableViewController: UITableViewController {
     }
     */
 
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
+        if segue.identifier ==  "EditInnerTask" {
+            let taskController = segue.destination as? AssignmentsViewController
+            let selectedRow = self.tableView.indexPath(for: sender as! UITableViewCell)?.row
+            let selectedTask = tasks[selectedRow!] as? Task
+            taskController?.currentEvent = selectedTask
+        }
     }
-    */
+    
 
 }

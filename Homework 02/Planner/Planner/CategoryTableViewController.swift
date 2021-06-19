@@ -8,6 +8,10 @@
 import UIKit
 import CoreData
 
+struct simpleCategory {
+    var catName: String
+    var count: Int
+}
 class CategoryCell: UITableViewCell{
     @IBOutlet weak var categoryView: UILabel!
     @IBOutlet weak var countView: UILabel!
@@ -15,7 +19,8 @@ class CategoryCell: UITableViewCell{
 
 class CategoryTableViewController: UITableViewController {
     
-    var categories: [NSManagedObject] = []
+    var onlyCategory: [String] = []
+    var categories: [simpleCategory] = []
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
     
     override func viewDidLoad() {
@@ -34,14 +39,48 @@ class CategoryTableViewController: UITableViewController {
     
     func loadDataFromDatabase() {
         let context = appDelegate.persistentContainer.viewContext
-        let request = NSFetchRequest<NSManagedObject>(entityName: "Contact")
+        //create requrest for entity
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Task")
         request.resultType = .dictionaryResultType
         request.returnsDistinctResults = true
         request.propertiesToFetch = ["category"]
+        if let res = try? context.fetch(request) as? [[String: String]] {
+            // print("res: \(res)")
+            // 8. Extract the distinct values
+            onlyCategory = res.compactMap { $0["category"] }
+        }
+        categories.removeAll()
+        for cat in onlyCategory{
+            categories.append(simpleCategory(catName: cat, count: 0))
+        }
+        var tasks: [NSManagedObject] = []
+        let newRequest = NSFetchRequest<NSManagedObject>(entityName: "Task")
         do{
-            categories = try context.fetch(request)
+            tasks = try context.fetch(newRequest)
         } catch let error as NSError {
             print("Could not fetch \(error)")
+        }
+        for i in 0...tasks.count - 1{
+            let task = tasks[i] as! Task
+            for j in 0...categories.count - 1{
+                if categories[j].catName == task.category{
+                    categories[j].count = categories[j].count + 1
+                }
+            }
+        }
+        while true {
+            var number = -1
+            for i in 0...categories.count - 1{
+                if categories[i].count == 0 {
+                    number = i
+                }
+            }
+            if number == -1 {
+                break
+            }
+            else {
+                categories.remove(at: number)
+            }
         }
     }
     // MARK: - Table view data source
@@ -61,6 +100,9 @@ class CategoryTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CategoryCell", for: indexPath) as! CategoryCell
 
         // Configure the cell...
+        let cat = categories[indexPath.row]
+        cell.categoryView.text = cat.catName
+        cell.countView.text = String(cat.count)
         return cell
     }
     
@@ -100,14 +142,20 @@ class CategoryTableViewController: UITableViewController {
     }
     */
 
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
+        if segue.identifier ==  "displayCategory" {
+            let taskController = segue.destination as? CategoryInnerTableViewController
+            let selectedRow = self.tableView.indexPath(for: sender as! UITableViewCell)?.row
+            let selectedTask = onlyCategory[selectedRow!]
+            taskController?.category = selectedTask
+        }
     }
-    */
+    
 
 }
