@@ -9,10 +9,6 @@ import UIKit
 
 class SettingViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
 
-    
-    
-    
-
     @IBOutlet weak var pckSortField: UIPickerView!
     @IBOutlet weak var swAscending: UISwitch!
     @IBOutlet weak var swHide: UISwitch!

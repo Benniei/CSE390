@@ -1,70 +1,93 @@
 //
-//  CategoryInnerTableViewController.swift
+//  CalendarViewController.swift
 //  Planner
 //
-//  Created by Bennie Chen on 6/17/21.
+//  Created by Bennie Chen on 6/19/21.
 //
 
 import UIKit
+import FSCalendar
 import CoreData
 
-class AssignmentInnerViewCell: UITableViewCell{
+class AssignmentCalendarCell: UITableViewCell {
+    
     @IBOutlet weak var assignmentView: UILabel!
     @IBOutlet weak var categoryView: UILabel!
     @IBOutlet weak var dateView: UILabel!
 }
 
-class CategoryInnerTableViewController: UITableViewController {
+class CalendarViewController: UIViewController, FSCalendarDelegate, UITableViewDataSource, UITableViewDelegate {
     
-    var category: String = ""
     var tasks: [NSManagedObject] = []
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
+    var dateCurrent: Date?
+    
+    @IBOutlet weak var calendar: FSCalendar!
+    @IBOutlet weak var tabel: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationItem.title? = category
-        self.navigationItem.rightBarButtonItem = self.editButtonItem
-        loadDataFromDatabase()
+        calendar.delegate = self
+        self.tabel.delegate = self
+        self.tabel.dataSource = self
+        self.navigationItem.leftBarButtonItem = self.editButtonItem
+        let date = Date()
+        let calendar = Calendar.current
+        let hour = calendar.component(.hour, from:date)
+        let minute = calendar.component(.minute, from:date)
+        loadDataFromDatabase(date: date.addingTimeInterval(-(Double((hour*3600) + (minute*60)))))
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        loadDataFromDatabase()
-        tableView.reloadData()
-    }
-        
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
+    func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
+        dateCurrent = date
+        loadDataFromDatabase(date: date)
+        tabel.reloadData()
     }
     
-    func loadDataFromDatabase() {
+    override func viewDidAppear(_ animated: Bool) {
+        tabel.reloadData()
+    }
+    
+    func loadDataFromDatabase(date: Date){
         let context = appDelegate.persistentContainer.viewContext
         let request = NSFetchRequest<NSManagedObject>(entityName: "Task")
-        let sortDescriptor = NSSortDescriptor(key: "date", ascending: true)
-        let sortDescriptorArray = [sortDescriptor]
-        request.sortDescriptors = sortDescriptorArray
-        let predicate = NSPredicate(format: "category = %@", category)
-        request.predicate = predicate
+        let startDate = date.timeIntervalSinceReferenceDate
+        let endDate = startDate + (3600 * 24)
         do{
             tasks = try context.fetch(request)
         } catch let error as NSError {
             print("Could not fetch \(error)")
         }
+        while true {
+            var number = -1
+            for i in 0...tasks.count - 1{
+                let task = tasks[i] as! Task
+                let time = (task.date)!.timeIntervalSinceReferenceDate
+                if !(time >= startDate && time < endDate) {
+                    number = i
+                    break
+                }
+            }
+            if number == -1 {
+                break
+            }
+            else {
+                tasks.remove(at: number)
+                if tasks.count == 0 {
+                    break
+                }
+            }
+        }
     }
-    // MARK: - Table view data source
-
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 1
-    }
-
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return tasks.count
-    }
-
     
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "SpecificCategorryCell", for: indexPath) as! AssignmentInnerViewCell
+    //Table setup
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return tasks.count // your number of cells here
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "AssignmenCalendarCell", for: indexPath) as! AssignmentCalendarCell
 
         // Configure the cell...
         let event = tasks[indexPath.row] as! Task
@@ -94,18 +117,7 @@ class CategoryInnerTableViewController: UITableViewController {
         return cell
     }
     
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
-    
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             let task = tasks[indexPath.row] as? Task
             let context = appDelegate.persistentContainer.viewContext
@@ -115,39 +127,21 @@ class CategoryInnerTableViewController: UITableViewController {
             } catch {
                 fatalError("Error Saving Context \(error)")
             }
-            loadDataFromDatabase()
+            loadDataFromDatabase(date: dateCurrent!)
             tableView.deleteRows(at: [indexPath], with: .fade)
         } else if editingStyle == .insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
+        }
     }
-
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
     
     // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
-        if segue.identifier ==  "EditInnerTask" {
+        if segue.identifier ==  "editFromCalendar" {
             let taskController = segue.destination as? AssignmentsViewController
-            let selectedRow = self.tableView.indexPath(for: sender as! UITableViewCell)?.row
+            let selectedRow = tabel.indexPath(for: sender as! UITableViewCell)?.row
             let selectedTask = tasks[selectedRow!] as? Task
             taskController?.currentEvent = selectedTask
         }

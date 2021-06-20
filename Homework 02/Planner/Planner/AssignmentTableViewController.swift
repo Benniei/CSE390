@@ -82,8 +82,7 @@ class AssignmentTableViewController: UITableViewController {
                 var number = -1
                 for i in 0...tasks.count - 1{
                     let task = tasks[i] as! Task
-                    let hour = Calendar.current.component(.hour, from: Date()) + 1
-                    let delta = (task.date)!.timeIntervalSinceReferenceDate - Date().timeIntervalSinceReferenceDate + (Double(hour) * 3600)
+                    let delta = (task.date)!.timeIntervalSinceReferenceDate - Date().timeIntervalSinceReferenceDate
                     if delta < 0 {
                         number = i
                         break
@@ -94,14 +93,16 @@ class AssignmentTableViewController: UITableViewController {
                 }
                 else {
                     tasks.remove(at: number)
+                    if tasks.count == 0 {
+                        break
+                    }
                 }
             }
         }
         for i in 0...tasks.count - 1{
             let task = tasks[i] as! Task
-            let hour = Calendar.current.component(.hour, from: Date()) + 1
-            let delta = (task.date)!.timeIntervalSinceReferenceDate - Date().timeIntervalSinceReferenceDate + (Double(hour) * 3600)
-            if delta < (3600 * 24) {
+            let delta = (task.date)!.timeIntervalSinceReferenceDate - Date().timeIntervalSinceReferenceDate
+            if delta < (3600 * 24) && delta > 0 {
                 todayCount = todayCount + 1
             }
         }
@@ -119,8 +120,7 @@ class AssignmentTableViewController: UITableViewController {
         formatter.dateStyle = .short
         formatter.setLocalizedDateFormatFromTemplate("MM/dd")
         cell.dateView?.text = formatter.string(from: (event.date)!)
-        let hour = Calendar.current.component(.hour, from: Date()) + 1
-        let delta = (event.date)!.timeIntervalSinceReferenceDate - Date().timeIntervalSinceReferenceDate + (Double(hour) * 3600)
+        let delta = (event.date)!.timeIntervalSinceReferenceDate - Date().timeIntervalSinceReferenceDate
         if delta < (3600 * 24)  && delta > 0 {
             cell.assignmentView?.textColor = UIColor.red
             cell.dateView?.textColor = UIColor.red
@@ -130,8 +130,8 @@ class AssignmentTableViewController: UITableViewController {
             cell.dateView?.textColor = UIColor.blue
         }
         else if delta < 0 {
-            cell.assignmentView?.textColor = UIColor.gray
-            cell.dateView?.textColor = UIColor.gray
+            cell.assignmentView?.textColor = UIColor.lightGray
+            cell.dateView?.textColor = UIColor.lightGray
         }
         else {
             cell.assignmentView?.textColor = UIColor.black

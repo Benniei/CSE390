@@ -60,6 +60,9 @@ class CategoryTableViewController: UITableViewController {
         } catch let error as NSError {
             print("Could not fetch \(error)")
         }
+        if(tasks.count == 0){
+            return
+        }
         for i in 0...tasks.count - 1{
             let task = tasks[i] as! Task
             for j in 0...categories.count - 1{
@@ -80,6 +83,9 @@ class CategoryTableViewController: UITableViewController {
             }
             else {
                 categories.remove(at: number)
+                if categories.count == 0 {
+                    break
+                }
             }
         }
     }
