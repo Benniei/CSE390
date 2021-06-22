@@ -9,23 +9,35 @@
 /* Begin PBXBuildFile section */
 		3B178E1726816AAE00E3A9ED /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B178E1626816AAE00E3A9ED /* AppDelegate.swift */; };
 		3B178E1926816AAE00E3A9ED /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B178E1826816AAE00E3A9ED /* SceneDelegate.swift */; };
-		3B178E1B26816AAE00E3A9ED /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B178E1A26816AAE00E3A9ED /* ViewController.swift */; };
 		3B178E1E26816AAE00E3A9ED /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3B178E1C26816AAE00E3A9ED /* Main.storyboard */; };
 		3B178E2126816AAE00E3A9ED /* Restaurant.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3B178E1F26816AAE00E3A9ED /* Restaurant.xcdatamodeld */; };
 		3B178E2326816AAF00E3A9ED /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3B178E2226816AAF00E3A9ED /* Assets.xcassets */; };
 		3B178E2626816AAF00E3A9ED /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3B178E2426816AAF00E3A9ED /* LaunchScreen.storyboard */; };
+		3B99EF55268290A0003F5F96 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B99EF54268290A0003F5F96 /* TableViewController.swift */; };
+		3B99EF57268290E2003F5F96 /* ReceiptTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B99EF56268290E2003F5F96 /* ReceiptTableViewController.swift */; };
+		3B99EF59268290FC003F5F96 /* SummaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B99EF58268290FC003F5F96 /* SummaryViewController.swift */; };
+		3B99EF5B26829551003F5F96 /* HistoryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B99EF5A26829551003F5F96 /* HistoryTableViewController.swift */; };
+		3B99EF5D268295F1003F5F96 /* OrderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B99EF5C268295F1003F5F96 /* OrderViewController.swift */; };
+		3B99EF5F26829630003F5F96 /* HistoryOrderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B99EF5E26829630003F5F96 /* HistoryOrderViewController.swift */; };
+		3B99EF6126829736003F5F96 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B99EF6026829736003F5F96 /* SettingsViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		3B178E1326816AAE00E3A9ED /* Restaurant.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Restaurant.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B178E1626816AAE00E3A9ED /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3B178E1826816AAE00E3A9ED /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		3B178E1A26816AAE00E3A9ED /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		3B178E1D26816AAE00E3A9ED /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		3B178E2026816AAE00E3A9ED /* Restaurant.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Restaurant.xcdatamodel; sourceTree = "<group>"; };
 		3B178E2226816AAF00E3A9ED /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3B178E2526816AAF00E3A9ED /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3B178E2726816AAF00E3A9ED /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3B99EF54268290A0003F5F96 /* TableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
+		3B99EF56268290E2003F5F96 /* ReceiptTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiptTableViewController.swift; sourceTree = "<group>"; };
+		3B99EF58268290FC003F5F96 /* SummaryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryViewController.swift; sourceTree = "<group>"; };
+		3B99EF5A26829551003F5F96 /* HistoryTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTableViewController.swift; sourceTree = "<group>"; };
+		3B99EF5C268295F1003F5F96 /* OrderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderViewController.swift; sourceTree = "<group>"; };
+		3B99EF5E26829630003F5F96 /* HistoryOrderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryOrderViewController.swift; sourceTree = "<group>"; };
+		3B99EF6026829736003F5F96 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,8 +72,14 @@
 			children = (
 				3B178E1626816AAE00E3A9ED /* AppDelegate.swift */,
 				3B178E1826816AAE00E3A9ED /* SceneDelegate.swift */,
-				3B178E1A26816AAE00E3A9ED /* ViewController.swift */,
 				3B178E1C26816AAE00E3A9ED /* Main.storyboard */,
+				3B99EF6026829736003F5F96 /* SettingsViewController.swift */,
+				3B99EF5E26829630003F5F96 /* HistoryOrderViewController.swift */,
+				3B99EF5C268295F1003F5F96 /* OrderViewController.swift */,
+				3B99EF5A26829551003F5F96 /* HistoryTableViewController.swift */,
+				3B99EF58268290FC003F5F96 /* SummaryViewController.swift */,
+				3B99EF56268290E2003F5F96 /* ReceiptTableViewController.swift */,
+				3B99EF54268290A0003F5F96 /* TableViewController.swift */,
 				3B178E2226816AAF00E3A9ED /* Assets.xcassets */,
 				3B178E2426816AAF00E3A9ED /* LaunchScreen.storyboard */,
 				3B178E2726816AAF00E3A9ED /* Info.plist */,
@@ -140,10 +158,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3B99EF5B26829551003F5F96 /* HistoryTableViewController.swift in Sources */,
 				3B178E2126816AAE00E3A9ED /* Restaurant.xcdatamodeld in Sources */,
-				3B178E1B26816AAE00E3A9ED /* ViewController.swift in Sources */,
+				3B99EF57268290E2003F5F96 /* ReceiptTableViewController.swift in Sources */,
+				3B99EF6126829736003F5F96 /* SettingsViewController.swift in Sources */,
 				3B178E1726816AAE00E3A9ED /* AppDelegate.swift in Sources */,
+				3B99EF55268290A0003F5F96 /* TableViewController.swift in Sources */,
+				3B99EF59268290FC003F5F96 /* SummaryViewController.swift in Sources */,
 				3B178E1926816AAE00E3A9ED /* SceneDelegate.swift in Sources */,
+				3B99EF5D268295F1003F5F96 /* OrderViewController.swift in Sources */,
+				3B99EF5F26829630003F5F96 /* HistoryOrderViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
