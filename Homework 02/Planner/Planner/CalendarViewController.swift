@@ -3,7 +3,15 @@
 //  Planner
 //
 //  Created by Bennie Chen on 6/19/21.
+//  Used FSCalendar from https://github.com/WenchaoD/FSCalendar#contact
 //
+
+/*
+ Name: Bennie Chen
+ ID: 112737201
+ CSE 390: Mobile App Development
+ Homework 2
+ */
 
 import UIKit
 import FSCalendar

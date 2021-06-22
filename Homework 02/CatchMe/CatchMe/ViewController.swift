@@ -5,6 +5,13 @@
 //  Created by Bennie Chen on 6/10/21.
 //
 
+/*
+ Name: Bennie Chen
+ ID: 112737201
+ CSE 390: Mobile App Development
+ Homework 2
+ */
+
 import UIKit
 
 class ViewController: UIViewController {
