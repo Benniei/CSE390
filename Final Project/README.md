@@ -38,7 +38,7 @@ This screen will show the information of orders that has been completed along wi
 <br /><img src="./images/orderHistory.png" alt="drawing" width="200"/>
 ## Database Attributes
 The firebase  database holds 7 attributes which are used to identify the customer. The attributes include the count (number of people), inUse (checks if the table is avalible), name of the cusomter, order (Strng representing the order), phone number, total price, and the time the customer came to the restaurant. 
-![attributes](./images/database.png)
+<br />![attributes](./images/database.png)<br />
 ## Sources
 * Logo Source
 	* App Icon: https://www.surrenderat20.net/2019/07/731-pbe-update-new-summoner-icons-tft.html
