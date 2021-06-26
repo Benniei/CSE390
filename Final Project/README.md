@@ -5,9 +5,15 @@ Made by Bennie Chen for CSE 390 (Mobile App Development)
 
 ## Table of Content
 
+* [Details](#details)
 * [Screens](#screens)
+* [Database Attributes](#database-attributes)
 * [Sources](#sources)
 
+## Details
+* Developing for iOS
+* Language of Choice: Swift
+* Database of Choice: Firebase
 ## Screens
 Main Screen<br /> 
 This screen contains the table in the restaurant. If the table is Blue then it is avalible, if it is read, then the table is currently taken
@@ -26,8 +32,16 @@ This screen is used to show the Order History, specifically for tables that have
 <br /><img src="./images/historyScreen.png" alt="drawing" width="200"/><br />
 Settings Screen<br />
 This screen will allow the user to customize how the History Table is being displayed. There are different sort view and the user can choose for the data to be ascending or descending.
-<br /><img src="./images/settngsScreen.png" alt="drawing" width="200"/><br />
+<br /><img src="./images/settingsScreen.png" alt="drawing" width="200"/><br />
 History Order Screen<br />
 This screen will show the information of orders that has been completed along with a Table View that only has the items they ordered
 <br /><img src="./images/orderHistory.png" alt="drawing" width="200"/>
+## Database Attributes
+The firebase  database holds 7 attributes which are used to identify the customer. The attributes include the count (number of people), inUse (checks if the table is avalible), name of the cusomter, order (Strng representing the order), phone number, total price, and the time the customer came to the restaurant. 
+![attributes](./images/database.png)
 ## Sources
+* Logo Source
+	* App Icon: https://www.surrenderat20.net/2019/07/731-pbe-update-new-summoner-icons-tft.html
+	  * Courtesy of Riot Games
+	* Tab Bar Icon: https://thenounproject.com/term/minimal/
+
