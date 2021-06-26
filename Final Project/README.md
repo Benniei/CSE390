@@ -11,7 +11,7 @@ Made by Bennie Chen for CSE 390 (Mobile App Development)
 ## Screens
 Main Screen<br /> 
 This screen contains the table in the restaurant. If the table is Blue then it is avalible, if it is read, then the table is currently taken
-<img src=".images/tableScreen.png" alt="drawing" width="200"/>
+<img src="./images/tableScreen.png" alt="drawing" width="200"/>
 Reciept Screen <br />
 This screen shows the Main Screen in a Table View and provides more information for all 6 tables. Deleting a table is the same as clearing the table and allowing the table to be avalible again. Avaliable tables are not displayed. 
 ![Reciept Screen](./images/RecieptScreen.png)
