@@ -9,7 +9,24 @@ Made by Bennie Chen for CSE 390 (Mobile App Development)
 * [Sources](#sources)
 
 ## Screens
-Main Screen<br /> This screen contains the table in the restaurant. If the table is Blue then it is avalible, if it is read, then the table is currently taken
-![tableScreen](./Screens/tableScreen.png =250x)
-
+Main Screen<br /> 
+This screen contains the table in the restaurant. If the table is Blue then it is avalible, if it is read, then the table is currently taken
+<img src=".images/tableScreen.png" alt="drawing" width="200"/>
+Reciept Screen <br />
+This screen shows the Main Screen in a Table View and provides more information for all 6 tables. Deleting a table is the same as clearing the table and allowing the table to be avalible again. Avaliable tables are not displayed. 
+![Reciept Screen](./images/RecieptScreen.png)
+Summary Screen<br />
+This screen provides a summary view of all the orders tha have been completed (deleted from the table). It provides the total revenue and a history of all deleted orders
+![Summary Screen](.images/summaryScreen.png)
+Order Screen<br />
+This screen is used to enter data about the customer and the food the customer would like to order. Each customer is limited to 9 of each item. 
+![Order Screen](.images/orderScreen.png)
+History Screen<br />
+This screen is used to show the Order History, specifically for tables that have left.
+![History Screen](.images/historyScreen.png)
+Settings Screen<br />
+This screen will allow the user to customize how the History Table is being displayed. There are different sort view and the user can choose for the data to be ascending or descending.
+![Setting Screen](.images/settngsScreen.png)
+History Order Screen<br />
+This screen will show the information of orders that has been completed along with a Table View that only has the items they ordered
 ## Sources
