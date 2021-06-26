@@ -4,8 +4,8 @@ Made by Bennie Chen for CSE 390 (Mobile App Development)
 
 
 ## Table of Content
-*  [Screens] (#screens)
-*  [Sources] (#sources)
+*  [Screens](#screens)
+*  [Sources](#sources)
 
 ## Screens
 ## Sources
