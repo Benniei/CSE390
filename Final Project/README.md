@@ -9,6 +9,7 @@ Made by Bennie Chen for CSE 390 (Mobile App Development)
 * [Sources](#sources)
 
 ## Screens
-![Main Screen<br /> This screen contains the table in the restaurant. If the table is Blue then it is avalible, if it is read, then the table is currently taken](./Screens/tableScreen.png)
+Main Screen<br /> This screen contains the table in the restaurant. If the table is Blue then it is avalible, if it is read, then the table is currently taken
+![tableScreen](./Screens/tableScreen.png =250x)
 
 ## Sources
