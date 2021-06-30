@@ -76,6 +76,8 @@ class AssignmentTableViewController: UITableViewController {
         } catch let error as NSError {
             print("Could not fetch \(error)")
         }
+        
+        
         let hidePast = settings.bool(forKey: Constants.kHidePastDue)
         if hidePast {
             while true {
